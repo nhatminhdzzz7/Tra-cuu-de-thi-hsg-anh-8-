@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tra Cứu Đề Thi HSG Tiếng Anh 8 · Nhật Minh</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;800&family=Be+Vietnam+Pro:wght@300;400;500;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#060a11;--s:#0c1320;--card:#101623;--b:#18223a;--b2:#1e2e4a;
+  --bl:#38bdf8;--cy:#22d3ee;--gn:#4ade80;--or:#fb923c;
+  --pu:#a78bfa;--pk:#f472b6;--ye:#fbbf24;--re:#f87171;
+  --tx:#dde8f5;--mu:#4e6a90;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Be Vietnam Pro',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;overflow-x:hidden;}
+
+/* LOADER */
+#loader{position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .7s,visibility .7s;}
+#loader.done{opacity:0;visibility:hidden;pointer-events:none;}
+.lr{width:72px;height:72px;border-radius:50%;border:2.5px solid transparent;border-top-color:var(--bl);border-right-color:var(--pu);border-bottom-color:var(--pk);animation:lspin .8s linear infinite;margin-bottom:24px;}
+@keyframes lspin{to{transform:rotate(360deg);}}
+.ls{font-family:'Dancing Script',cursive;font-size:52px;font-weight:700;background:linear-gradient(135deg,var(--bl),var(--pu),var(--pk));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:lpulse 1.4s ease-in-out infinite;}
+@keyframes lpulse{0%,100%{opacity:.55;transform:scale(.95);}50%{opacity:1;transform:scale(1.05);}}
+.lb{width:200px;height:2px;background:var(--b2);border-radius:4px;margin-top:20px;overflow:hidden;}
+.lf{height:100%;width:0;background:linear-gradient(90deg,var(--bl),var(--pu),var(--pk),var(--or));border-radius:4px;animation:lfill 1.3s ease forwards .3s;}
+@keyframes lfill{to{width:100%;}}
+.lt{color:var(--mu);font-size:10px;margin-top:10px;letter-spacing:2px;text-transform:uppercase;animation:lpulse 1.4s ease-in-out infinite;}
+
+/* CANVAS */
+#cvs{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.35;}
+
+/* RAINBOW BAR */
+.rb{height:3px;background:linear-gradient(90deg,#38bdf8,#22d3ee,#4ade80,#fbbf24,#fb923c,#f472b6,#a78bfa,#38bdf8);background-size:400% 100%;animation:rbs 4s linear infinite;}
+@keyframes rbs{to{background-position:-400% 0;}}
+
+/* HEADER */
+header{position:relative;z-index:10;background:linear-gradient(180deg,rgba(6,10,17,.99),rgba(12,19,32,.96));border-bottom:1px solid var(--b);padding:0 20px 30px;text-align:center;overflow:hidden;}
+.mesh{position:absolute;inset:0;pointer-events:none;animation:mf 9s ease-in-out infinite alternate;}
+@keyframes mf{
+  0%{background:radial-gradient(ellipse 40% 60% at 15% 50%,rgba(56,189,248,.09),transparent),radial-gradient(ellipse 30% 50% at 85% 40%,rgba(167,139,250,.09),transparent),radial-gradient(ellipse 35% 55% at 50% 85%,rgba(244,114,182,.06),transparent);}
+  100%{background:radial-gradient(ellipse 50% 70% at 30% 60%,rgba(56,189,248,.12),transparent),radial-gradient(ellipse 40% 60% at 70% 30%,rgba(167,139,250,.11),transparent),radial-gradient(ellipse 35% 55% at 55% 90%,rgba(244,114,182,.08),transparent);}
+}
+.orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;}
+.o1{width:300px;height:300px;background:rgba(56,189,248,.055);top:-120px;left:-90px;animation:oa 24s ease-in-out infinite;}
+.o2{width:250px;height:250px;background:rgba(167,139,250,.055);top:-70px;right:-70px;animation:ob 19s ease-in-out infinite;}
+.o3{width:220px;height:220px;background:rgba(244,114,182,.045);bottom:-50px;left:42%;animation:oc 17s ease-in-out infinite;}
+.o4{width:180px;height:180px;background:rgba(74,222,128,.04);top:30%;right:10%;animation:oa 21s ease-in-out infinite reverse;}
+@keyframes oa{0%,100%{transform:translate(0,0);}33%{transform:translate(35px,-25px);}66%{transform:translate(-25px,18px);}}
+@keyframes ob{0%,100%{transform:translate(0,0);}50%{transform:translate(-28px,22px);}}
+@keyframes oc{0%,100%{transform:translate(0,0);}50%{transform:translate(22px,-18px);}}
+
+/* Signature */
+.sw2{padding:26px 0 12px;display:flex;align-items:center;justify-content:center;gap:16px;}
+.sline{flex:1;max-width:120px;height:1px;}
+.sline.l{background:linear-gradient(90deg,transparent,var(--b2));}
+.sline.r{background:linear-gradient(90deg,var(--b2),transparent);}
+.sig{font-family:'Dancing Script',cursive;font-size:clamp(32px,5vw,50px);font-weight:700;background:linear-gradient(135deg,var(--bl) 0%,var(--pu) 50%,var(--pk) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:sgin 1.5s cubic-bezier(.22,1,.36,1) both;position:relative;filter:drop-shadow(0 0 22px rgba(56,189,248,.22));}
+@keyframes sgin{0%{opacity:0;transform:translateY(28px) rotate(-5deg);filter:blur(12px);}100%{opacity:1;transform:none;filter:drop-shadow(0 0 22px rgba(56,189,248,.22));}}
+.sp{position:absolute;pointer-events:none;animation:spa 2.8s ease-in-out infinite;}
+.sp1{top:-12px;right:-20px;font-size:12px;color:var(--ye);}
+.sp2{bottom:-8px;left:-16px;font-size:10px;color:var(--pk);animation-delay:.9s;}
+.sp3{top:45%;right:-30px;font-size:9px;color:var(--cy);animation-delay:1.7s;}
+@keyframes spa{0%,100%{opacity:.25;transform:scale(.65) rotate(0);}50%{opacity:1;transform:scale(1.35) rotate(25deg);}}
+
+.badge{display:inline-flex;align-items:center;gap:6px;background:rgba(56,189,248,.07);border:1px solid rgba(56,189,248,.18);color:var(--bl);font-size:10px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;padding:5px 16px;border-radius:20px;margin-bottom:14px;animation:fu .8s .2s both;}
+h1{font-family:'Baloo 2',cursive;font-size:clamp(22px,5vw,42px);font-weight:800;line-height:1.2;margin-bottom:10px;animation:fu .8s .35s both;}
+.h1a{display:block;background:linear-gradient(135deg,#f0f8ff 10%,var(--bl));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.h1b{display:block;background:linear-gradient(135deg,var(--bl),var(--pu));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.sub{color:var(--mu);font-size:12.5px;line-height:1.7;animation:fu .8s .5s both;}
+@keyframes fu{0%{opacity:0;transform:translateY(20px);}100%{opacity:1;transform:none;}}
+
+/* Stats */
+.stats{display:flex;justify-content:center;gap:8px;margin-top:22px;flex-wrap:wrap;animation:fu .8s .65s both;}
+.sc{background:rgba(255,255,255,.025);border:1px solid var(--b);border-radius:14px;padding:12px 20px;text-align:center;min-width:72px;transition:all .3s;position:relative;overflow:hidden;}
+.sc::before{content:'';position:absolute;inset:0;opacity:0;transition:opacity .3s;}
+.sc.s1::before{background:radial-gradient(circle at 50% 0%,rgba(56,189,248,.08),transparent 70%);}
+.sc.s2::before{background:radial-gradient(circle at 50% 0%,rgba(167,139,250,.08),transparent 70%);}
+.sc.s3::before{background:radial-gradient(circle at 50% 0%,rgba(74,222,128,.08),transparent 70%);}
+.sc.s4::before{background:radial-gradient(circle at 50% 0%,rgba(251,191,36,.08),transparent 70%);}
+.sc:hover{transform:translateY(-3px);}
+.sc.s1:hover{border-color:rgba(56,189,248,.4);}.sc.s1:hover::before{opacity:1;}
+.sc.s2:hover{border-color:rgba(167,139,250,.4);}.sc.s2:hover::before{opacity:1;}
+.sc.s3:hover{border-color:rgba(74,222,128,.4);}.sc.s3:hover::before{opacity:1;}
+.sc.s4:hover{border-color:rgba(251,191,36,.4);}.sc.s4:hover::before{opacity:1;}
+.sn{font-family:'Baloo 2',cursive;font-size:28px;font-weight:800;display:block;line-height:1;margin-bottom:2px;}
+.s1 .sn{color:var(--bl);}
+.s2 .sn{color:var(--pu);}
+.s3 .sn{color:var(--gn);}
+.s4 .sn{color:var(--ye);}
+.sl2{font-size:9px;color:var(--mu);text-transform:uppercase;letter-spacing:1.5px;}
+
+/* SEARCH */
+.sw{max-width:700px;margin:24px auto 0;padding:0 16px;animation:fu .8s .8s both;position:relative;z-index:5;}
+.swb{position:relative;}
+.swi{position:absolute;left:18px;top:50%;transform:translateY(-50%);color:var(--mu);font-size:15px;pointer-events:none;}
+.sw input{width:100%;background:var(--card);border:1px solid var(--b2);border-radius:16px;padding:14px 18px 14px 48px;font-family:'Be Vietnam Pro',sans-serif;font-size:13px;color:var(--tx);outline:none;transition:all .3s;}
+.sw input:focus{border-color:var(--bl);box-shadow:0 0 0 3px rgba(56,189,248,.07),0 10px 35px rgba(0,0,0,.4);}
+.sw input::placeholder{color:var(--mu);}
+
+/* FILTERS */
+.filters{max-width:1020px;margin:14px auto 0;padding:0 16px;display:flex;gap:6px;flex-wrap:wrap;justify-content:center;animation:fu .8s .95s both;position:relative;z-index:5;}
+.fb{background:var(--card);border:1px solid var(--b);color:var(--mu);font-family:'Be Vietnam Pro',sans-serif;font-size:10px;font-weight:600;padding:5px 13px;border-radius:20px;cursor:pointer;transition:all .2s;letter-spacing:.4px;}
+.fb:hover,.fb.active{background:rgba(56,189,248,.08);border-color:rgba(56,189,248,.35);color:var(--bl);box-shadow:0 0 14px rgba(56,189,248,.1);}
+.fb.g:hover,.fb.g.active{background:rgba(74,222,128,.08);border-color:rgba(74,222,128,.35);color:var(--gn);box-shadow:0 0 14px rgba(74,222,128,.1);}
+.fb.o:hover,.fb.o.active{background:rgba(251,146,60,.08);border-color:rgba(251,146,60,.35);color:var(--or);box-shadow:0 0 14px rgba(251,146,60,.1);}
+.fb.p:hover,.fb.p.active{background:rgba(167,139,250,.08);border-color:rgba(167,139,250,.35);color:var(--pu);box-shadow:0 0 14px rgba(167,139,250,.1);}
+.fb.y:hover,.fb.y.active{background:rgba(251,191,36,.08);border-color:rgba(251,191,36,.35);color:var(--ye);box-shadow:0 0 14px rgba(251,191,36,.1);}
+.fb.pk:hover,.fb.pk.active{background:rgba(244,114,182,.08);border-color:rgba(244,114,182,.35);color:var(--pk);}
+
+/* MAIN */
+main{max-width:1020px;margin:24px auto;padding:0 16px 90px;position:relative;z-index:5;}
+#rc{color:var(--mu);font-size:11px;margin-bottom:12px;letter-spacing:.3px;}
+.stitle{font-size:10px;font-weight:700;color:var(--mu);text-transform:uppercase;letter-spacing:2.5px;margin-bottom:16px;display:flex;align-items:center;gap:10px;}
+.stitle::before{content:'';width:3px;height:14px;background:linear-gradient(180deg,var(--bl),var(--pu));border-radius:2px;}
+.stitle::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--b2),transparent);}
+
+/* GRID */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(275px,1fr));gap:10px;}
+.card{background:var(--card);border:1px solid var(--b);border-radius:15px;padding:16px;text-decoration:none;display:block;position:relative;overflow:hidden;transition:transform .28s cubic-bezier(.34,1.56,.64,1),border-color .28s,box-shadow .28s;animation:cin .4s both;}
+@keyframes cin{0%{opacity:0;transform:translateY(16px) scale(.96);}100%{opacity:1;transform:none;}}
+
+/* Top color line per year */
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;opacity:0;transition:opacity .3s;border-radius:15px 15px 0 0;}
+.yr-new::before{background:linear-gradient(90deg,var(--pu),var(--pk),var(--re));}
+.yr-recent::before{background:linear-gradient(90deg,var(--bl),var(--cy),var(--gn));}
+.yr-mid::before{background:linear-gradient(90deg,var(--gn),var(--cy));}
+.yr-old::before{background:linear-gradient(90deg,var(--ye),var(--or));}
+
+/* Shimmer */
+.card::after{content:'';position:absolute;top:0;left:-160%;width:65%;height:100%;background:linear-gradient(108deg,transparent,rgba(255,255,255,.035),transparent);transition:left .6s;pointer-events:none;}
+.card:hover::after{left:180%;}
+.card:hover{transform:translateY(-5px) scale(1.015);border-color:rgba(56,189,248,.3);box-shadow:0 18px 45px rgba(0,0,0,.5),0 0 0 1px rgba(56,189,248,.05),0 0 35px rgba(56,189,248,.04);}
+.card:hover::before{opacity:1;}
+
+/* Card glow dot */
+.cdot{position:absolute;bottom:14px;right:14px;width:6px;height:6px;border-radius:50%;opacity:0;transition:all .3s;}
+.yr-new .cdot{background:var(--pk);}
+.yr-recent .cdot{background:var(--bl);}
+.yr-mid .cdot{background:var(--gn);}
+.yr-old .cdot{background:var(--ye);}
+.card:hover .cdot{opacity:1;box-shadow:0 0 8px currentColor;}
+
+.ch{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:10px;}
+.ci{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;transition:transform .25s;}
+.card:hover .ci{transform:scale(1.1);}
+.ib{background:rgba(56,189,248,.13);}.ig{background:rgba(74,222,128,.13);}.io{background:rgba(251,146,60,.13);}.ip{background:rgba(167,139,250,.13);}.iy{background:rgba(251,191,36,.13);}.ipk{background:rgba(244,114,182,.13);}
+.cy2{font-size:9px;font-weight:700;padding:3px 9px;border-radius:6px;white-space:nowrap;letter-spacing:.4px;}
+.cy-new{background:rgba(167,139,250,.18);color:var(--pu);}
+.cy-recent{background:rgba(56,189,248,.14);color:var(--bl);}
+.cy-mid{background:rgba(74,222,128,.14);color:var(--gn);}
+.cy-old{background:rgba(251,191,36,.14);color:var(--ye);}
+.ct{font-family:'Baloo 2',cursive;font-size:13.5px;font-weight:700;color:var(--tx);line-height:1.3;margin-bottom:4px;}
+.cs{font-size:10px;color:var(--mu);margin-bottom:10px;line-height:1.65;}
+.tags{display:flex;gap:4px;flex-wrap:wrap;}
+.tag{font-size:8.5px;font-weight:700;padding:2px 7px;border-radius:4px;text-transform:uppercase;letter-spacing:.6px;}
+.tf{background:rgba(74,222,128,.13);color:#4ade80;}
+.ta{background:rgba(56,189,248,.13);color:#38bdf8;}
+.tw{background:rgba(251,146,60,.13);color:#fb923c;}
+.tb{background:rgba(167,139,250,.13);color:#a78bfa;}
+.tpk{background:rgba(244,114,182,.13);color:#f472b6;}
+
+/* NO RESULT */
+.nr{text-align:center;padding:70px 20px;display:none;}
+.nri{font-size:56px;display:block;margin-bottom:16px;animation:bnc 2s ease-in-out infinite;}
+@keyframes bnc{0%,100%{transform:translateY(0);}50%{transform:translateY(-14px);}}
+.nr p{color:var(--mu);font-size:13px;line-height:1.8;}
+
+/* SCROLL TOP */
+#stt{position:fixed;bottom:26px;right:26px;width:46px;height:46px;background:var(--card);border:1px solid var(--b2);border-radius:13px;color:var(--bl);font-size:18px;cursor:pointer;display:none;align-items:center;justify-content:center;z-index:100;transition:all .25s;box-shadow:0 4px 24px rgba(0,0,0,.45);}
+#stt:hover{background:rgba(56,189,248,.08);border-color:rgba(56,189,248,.4);transform:translateY(-4px);box-shadow:0 10px 28px rgba(56,189,248,.14);}
+#stt.vis{display:flex;}
+
+/* FOOTER */
+footer{text-align:center;padding:22px;border-top:1px solid var(--b);color:var(--mu);font-size:10.5px;position:relative;z-index:5;background:linear-gradient(0deg,rgba(12,19,32,.5),transparent);}
+footer a{color:var(--bl);text-decoration:none;transition:opacity .2s;}
+footer a:hover{opacity:.7;}
+.fsig{font-family:'Dancing Script',cursive;font-size:20px;background:linear-gradient(135deg,var(--bl),var(--pu),var(--pk));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-top:8px;display:block;}
+@media(max-width:480px){.grid{grid-template-columns:1fr;}.stats{gap:5px;}}
+</style>
+</head>
+<body>
+<div id="loader">
+  <div class="lr"></div>
+  <div class="ls">Nhật Minh</div>
+  <div class="lb"><div class="lf"></div></div>
+  <div class="lt">Đang tải đề thi...</div>
+</div>
+<canvas id="cvs"></canvas>
+<header>
+  <div class="rb"></div>
+  <div class="mesh"></div>
+  <div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div><div class="orb o4"></div>
+  <div class="sw2">
+    <div class="sline l"></div>
+    <div class="sig">Nhật Minh<span class="sp sp1">✦</span><span class="sp sp2">✧</span><span class="sp sp3">✦</span></div>
+    <div class="sline r"></div>
+  </div>
+  <div class="badge">📚 Tài liệu học tập · HSG Anh 8</div>
+  <h1><span class="h1a">Tra Cứu Đề Thi HSG</span><span class="h1b">Tiếng Anh Lớp 8</span></h1>
+  <p class="sub">Tổng hợp đề thi HSG cấp huyện/tỉnh toàn quốc · Có đáp án & file nghe<br>Link tải trực tiếp từng đề · Từ 2009 đến 2025 · Made with ❤️ by Nhật Minh</p>
+  <div class="stats">
+    <div class="sc s1"><span class="sn" id="tc">0</span><span class="sl2">Đề thi</span></div>
+    <div class="sc s2"><span class="sn">3+</span><span class="sl2">Nguồn</span></div>
+    <div class="sc s3"><span class="sn">35+</span><span class="sl2">Tỉnh/TP</span></div>
+    <div class="sc s4"><span class="sn">16</span><span class="sl2">Năm học</span></div>
+  </div>
+</header>
+<div class="sw"><div class="swb"><span class="swi">🔍</span><input id="si" type="text" placeholder="Tìm theo tên huyện, tỉnh... (vd: Thanh Hóa, Ninh Bình, Hà Nội, Nghệ An...)"/></div></div>
+<div class="filters">
+  <button class="fb active" data-f="all">🗂 Tất cả</button>
+  <button class="fb p" data-f="2024-2025">🆕 2024-2025</button>
+  <button class="fb" data-f="2023-2024">2023-2024</button>
+  <button class="fb" data-f="2022-2023">2022-2023</button>
+  <button class="fb y" data-f="2021-2022">2021-2022</button>
+  <button class="fb y" data-f="2020-2021">2020-2021</button>
+  <button class="fb g" data-f="2018-2020">2018-2020</button>
+  <button class="fb g" data-f="2016-2018">2016-2018</button>
+  <button class="fb o" data-f="truoc2016">Trước 2016</button>
+  <button class="fb g" data-f="audio">🎧 File nghe</button>
+  <button class="fb g" data-f="free">✅ Miễn phí</button>
+  <button class="fb" data-f="tailieudieuky">tailieudieuky</button>
+  <button class="fb" data-f="thuvienhoclieu">thuvienhoclieu</button>
+  <button class="fb" data-f="vndoc">vndoc</button>
+  <button class="fb pk" data-f="tinh">🥇 Cấp tỉnh</button>
+</div>
+<main>
+  <p id="rc"></p>
+  <div class="stitle">Danh sách đề thi — link tải trực tiếp</div>
+  <div class="grid" id="grid"></div>
+  <div class="nr" id="nr"><span class="nri">🔍</span><p>Không tìm thấy đề thi phù hợp.<br>Thử từ khóa khác nhé!</p></div>
+</main>
+<footer>
+  Nguồn: <a href="https://tailieudieuky.com" target="_blank">tailieudieuky.com</a> ·
+  <a href="https://thuvienhoclieu.com" target="_blank">thuvienhoclieu.com</a> ·
+  <a href="https://vndoc.com" target="_blank">vndoc.com</a> — Cập nhật 3/2026
+  <span class="fsig">Nhật Minh ✦</span>
+</footer>
+<button id="stt" title="Lên đầu trang">↑</button>
+
+<script>
+window.addEventListener('load',()=>setTimeout(()=>document.getElementById('loader').classList.add('done'),1600));
+
+(()=>{
+  const c=document.getElementById('cvs'),x=c.getContext('2d');
+  let W,H,pts=[];
+  const rz=()=>{W=c.width=innerWidth;H=c.height=innerHeight;};rz();addEventListener('resize',rz);
+  const cols=['#38bdf8','#a78bfa','#4ade80','#fbbf24','#f472b6','#fb923c','#22d3ee','#f87171'];
+  for(let i=0;i<75;i++)pts.push({x:Math.random()*2400,y:Math.random()*1400,vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3,r:Math.random()*1.8+.3,c:cols[i%8],a:Math.random()*.45+.08});
+  const draw=()=>{
+    x.clearRect(0,0,W,H);
+    for(let i=0;i<pts.length;i++){
+      const p=pts[i];p.x=(p.x+p.vx+W)%W;p.y=(p.y+p.vy+H)%H;
+      x.beginPath();x.arc(p.x,p.y,p.r,0,6.28);x.globalAlpha=p.a;x.fillStyle=p.c;x.fill();
+      for(let j=i+1;j<pts.length;j++){
+        const q=pts[j],dx=p.x-q.x,dy=p.y-q.y,d=Math.hypot(dx,dy);
+        if(d<115){x.beginPath();x.moveTo(p.x,p.y);x.lineTo(q.x,q.y);x.globalAlpha=.045*(1-d/115);x.strokeStyle=p.c;x.lineWidth=.5;x.stroke();}
+      }
+    }
+    requestAnimationFrame(draw);
+  };draw();
+})();
+
+const stt=document.getElementById('stt');
+addEventListener('scroll',()=>stt.classList.toggle('vis',scrollY>400));
+stt.onclick=()=>scrollTo({top:0,behavior:'smooth'});
+
+/* ======================================================
+   88 ĐỀ TỪ BỘ TAILIEUDIEUKY (đường dẫn tổng hợp) +
+   CÁC ĐỀ RIÊNG LẺ ĐÃ XÁC NHẬN URL TRỰC TIẾP
+   ====================================================== */
+const B88="https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/";
+const D=[
+
+/* ==================== 2024-2025 (đề riêng lẻ xác nhận URL) ==================== */
+{t:"Huyện Nam Trực",p:"Nam Định",y:"2024-2025",d:"4 phần · file nghe MP3 + đáp án · Word+PDF · miễn phí",tg:["free","audio","word"],ic:"📝",icl:"ig",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/de-thi-hsg-anh-8-nam-truc-2024-2025-kem-dap-an/"},
+{t:"Huyện Xuân Trường",p:"Nam Định",y:"2024-2025",d:"9 trang · format đề mới 2025 · Word+PDF+MP3",tg:["free","audio","word"],ic:"📄",icl:"ib",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/de-hsg-tieng-anh-8-2024-2025-moi-nhat/"},
+{t:"TP Thanh Hóa",p:"Thanh Hóa",y:"2024-2025",d:"Thi 09/01/2025 · 5 phần · file nghe + đáp án · miễn phí",tg:["free","audio","word"],ic:"🏆",icl:"io",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/de-thi-hsg-tieng-anh-8-tp-thanh-hoa-2025/"},
+{t:"Huyện Nga Sơn",p:"Thanh Hóa",y:"2024-2025",d:"Đề giao lưu · 8 trang · Word+PDF+MP3 · miễn phí",tg:["free","audio","word"],ic:"🎧",icl:"ib",src:"thuvienhoclieu",url:"https://thuvienhoclieu.com/de-giao-luu-hsg-anh-8-huyen-nga-son-2024-2025-co-dap-an-va-file-nghe/"},
+{t:"Huyện Yên Thành",p:"Nghệ An",y:"2024-2025",d:"Phòng GD&ĐT chính thức · đáp án chi tiết · Word",tg:["free","word"],ic:"📄",icl:"ig",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/de-thi-hoc-sinh-gioi-tieng-anh-lop-8-huyen-yen-thanh-2024/"},
+{t:"Cấp tỉnh Nam Định",p:"Nam Định",y:"2024-2025",d:"Đề HSG cấp tỉnh 2025 · đáp án chi tiết · 10 trang",tg:["free","word","tinh"],ic:"🥇",icl:"ig",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/de-thi-hsg-anh-8-nam-truc-2024-2025-kem-dap-an/"},
+
+/* ==================== 88 ĐỀ TRONG BỘ TAILIEUDIEUKY (2009-2024) ==================== */
+/* [Bạc Liêu] */
+{t:"Huyện Hòa Bình – 2017-2018",p:"Bạc Liêu",y:"2017-2018",d:"Đề HSG miền Nam · có trong bộ 88 · Word",tg:["word"],ic:"📄",icl:"ig",src:"tailieudieuky",url:B88},
+{t:"Huyện Hòa Bình – 2020-2021",p:"Bạc Liêu",y:"2020-2021",d:"Đề HSG miền Nam · có file nghe · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"ig",src:"tailieudieuky",url:B88},
+
+/* [Bắc Giang] */
+{t:"Cấp tỉnh Bắc Giang – 2015-2016",p:"Bắc Giang",y:"2015-2016",d:"Đề HSG cấp tỉnh · có trong bộ 88 · Word",tg:["word","tinh"],ic:"🥇",icl:"ip",src:"tailieudieuky",url:B88},
+{t:"Huyện Việt Yên – 2022-2023",p:"Bắc Giang",y:"2022-2023",d:"Đề HSG cấp huyện · có trong bộ 88 · Word",tg:["word"],ic:"📄",icl:"ip",src:"tailieudieuky",url:B88},
+{t:"TP Bắc Giang – 2015-2016",p:"Bắc Giang",y:"2015-2016",d:"Đề HSG cấp TP · có file nghe · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"ip",src:"tailieudieuky",url:B88},
+
+/* [Bắc Ninh] */
+{t:"THCS Nghĩa Đạo (Thuận Thành) – 2022-2023",p:"Bắc Ninh",y:"2022-2023",d:"Đề cấp trường · 7 trang · có trong bộ 88 · Word+PDF",tg:["word"],ic:"🏫",icl:"ib",src:"tailieudieuky",url:B88},
+
+/* [Đà Nẵng] */
+{t:"Cấp quận/huyện Đà Nẵng – 2022-2023",p:"Đà Nẵng",y:"2022-2023",d:"Đề HSG miền Trung · có file nghe · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"ib",src:"tailieudieuky",url:B88},
+{t:"Cấp quận/huyện Đà Nẵng – 2021-2022",p:"Đà Nẵng",y:"2021-2022",d:"Đề HSG · có file nghe · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"ib",src:"tailieudieuky",url:B88},
+{t:"Cấp quận/huyện Đà Nẵng – 2020-2021",p:"Đà Nẵng",y:"2020-2021",d:"Đề HSG · file nghe · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"ib",src:"tailieudieuky",url:B88},
+{t:"Cấp quận/huyện Đà Nẵng – 2019-2020",p:"Đà Nẵng",y:"2019-2020",d:"Đề HSG · file nghe · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"ib",src:"tailieudieuky",url:B88},
+{t:"Cấp quận/huyện Đà Nẵng – 2018-2019",p:"Đà Nẵng",y:"2018-2019",d:"Đề HSG · file nghe · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"ib",src:"tailieudieuky",url:B88},
+{t:"Cấp quận/huyện Đà Nẵng – 2017-2018",p:"Đà Nẵng",y:"2017-2018",d:"Đề HSG · file nghe · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"ib",src:"tailieudieuky",url:B88},
+{t:"Cấp quận/huyện Đà Nẵng – 2016-2017",p:"Đà Nẵng",y:"2016-2017",d:"Đề HSG · file nghe · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"ib",src:"tailieudieuky",url:B88},
+{t:"Cấp quận/huyện Đà Nẵng – 2015-2016",p:"Đà Nẵng",y:"2015-2016",d:"Đề HSG · file nghe · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"ib",src:"tailieudieuky",url:B88},
+{t:"Cấp quận/huyện Đà Nẵng – 2014-2015",p:"Đà Nẵng",y:"2014-2015",d:"Đề HSG · file nghe · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"ib",src:"tailieudieuky",url:B88},
+{t:"Cấp quận/huyện Đà Nẵng – 2013-2014",p:"Đà Nẵng",y:"2013-2014",d:"Đề HSG · file nghe · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"ib",src:"tailieudieuky",url:B88},
+
+/* [Hà Nam] */
+{t:"Huyện Kim Bảng – 2016-2017",p:"Hà Nam",y:"2016-2017",d:"Đề HSG cấp huyện · có file nghe · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"iy",src:"tailieudieuky",url:B88},
+
+/* [Hà Nội] */
+{t:"Huyện Thanh Oai – 2012-2013",p:"Hà Nội",y:"2012-2013",d:"Đề chọn HSG lưu trữ · có trong bộ 88 · Word",tg:["word"],ic:"📄",icl:"ib",src:"tailieudieuky",url:B88},
+{t:"Huyện Thanh Oai – 2016-2017",p:"Hà Nội",y:"2016-2017",d:"Đề chọn HSG · có file nghe · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"ib",src:"tailieudieuky",url:B88},
+{t:"Huyện Thanh Oai – 2018-2019",p:"Hà Nội",y:"2018-2019",d:"Đề chọn HSG · có file nghe · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"ib",src:"tailieudieuky",url:B88},
+
+/* [Hà Tĩnh] */
+{t:"Huyện Cẩm Xuyên – 2015-2016",p:"Hà Tĩnh",y:"2015-2016",d:"Đề HSG cấp huyện · có trong bộ 88 · Word",tg:["word"],ic:"📄",icl:"io",src:"tailieudieuky",url:B88},
+{t:"Huyện Kỳ Anh – 2021-2022 (Đề 1)",p:"Hà Tĩnh",y:"2021-2022",d:"Đề chính thức · đáp án chi tiết · có trong bộ 88",tg:["word"],ic:"📝",icl:"io",src:"tailieudieuky",url:B88},
+{t:"Huyện Kỳ Anh – 2021-2022 (Đề 2)",p:"Hà Tĩnh",y:"2021-2022",d:"Phiên bản 2 · đáp án · có trong bộ 88",tg:["word"],ic:"📝",icl:"io",src:"tailieudieuky",url:B88},
+{t:"Huyện Kỳ Anh – 2021-2022 (Đề 3)",p:"Hà Tĩnh",y:"2021-2022",d:"Phiên bản 3 · đáp án · có trong bộ 88",tg:["word"],ic:"📝",icl:"io",src:"tailieudieuky",url:B88},
+
+/* [Hải Phòng] */
+{t:"Huyện Tiên Lãng – 2009-2010",p:"Hải Phòng",y:"2009-2010",d:"Đề lưu trữ 2009 · có trong bộ 88 · Word",tg:["word"],ic:"📄",icl:"iy",src:"tailieudieuky",url:B88},
+{t:"Huyện Tiên Lãng – 2010-2011",p:"Hải Phòng",y:"2010-2011",d:"Đề lưu trữ 2010 · có trong bộ 88 · Word",tg:["word"],ic:"📄",icl:"iy",src:"tailieudieuky",url:B88},
+{t:"Huyện Tiên Lãng – 2011-2012",p:"Hải Phòng",y:"2011-2012",d:"Đề lưu trữ 2011 · có trong bộ 88 · Word",tg:["word"],ic:"📄",icl:"iy",src:"tailieudieuky",url:B88},
+
+/* [Lào Cai] */
+{t:"Thị xã Sa Pa – 2012-2013",p:"Lào Cai",y:"2012-2013",d:"Đề HSG vùng núi phía Bắc · có trong bộ 88 · Word",tg:["word"],ic:"🏔️",icl:"ip",src:"tailieudieuky",url:B88},
+
+/* [Nghệ An] */
+{t:"Huyện Nghĩa Đàn – 2012-2013",p:"Nghệ An",y:"2012-2013",d:"Đề HSG cấp huyện · có trong bộ 88 · Word",tg:["word"],ic:"📄",icl:"ig",src:"tailieudieuky",url:B88},
+{t:"THCS Kim Đồng (Đô Lương) – 2016-2017",p:"Nghệ An",y:"2016-2017",d:"Đề cấp trường · có file nghe · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"ig",src:"tailieudieuky",url:B88},
+
+/* [Ninh Bình] */
+{t:"Huyện Gia Viễn – 2022-2023",p:"Ninh Bình",y:"2022-2023",d:"11 trang · Word+PDF+MP3 · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"ip",src:"tailieudieuky",url:B88},
+{t:"Huyện Nho Quan – 2013-2014",p:"Ninh Bình",y:"2013-2014",d:"Đề HSG cấp huyện · Word .doc · có trong bộ 88",tg:["word"],ic:"📄",icl:"ip",src:"tailieudieuky",url:B88},
+{t:"Huyện Nho Quan – 2014-2015",p:"Ninh Bình",y:"2014-2015",d:"Đề HSG cấp huyện · Word .doc · có trong bộ 88",tg:["word"],ic:"📄",icl:"ip",src:"tailieudieuky",url:B88},
+
+/* [Quảng Ninh] */
+{t:"Phòng GD&ĐT Quảng Ninh – 2022-2023",p:"Quảng Ninh",y:"2022-2023",d:"Đề chính thức · có file nghe · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"ib",src:"tailieudieuky",url:B88},
+
+/* [TP HCM] */
+{t:"TP Hồ Chí Minh – 2023-2024 (Đề 1)",p:"TP Hồ Chí Minh",y:"2023-2024",d:"Đề HSG cấp quận · file nghe · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"ipk",src:"tailieudieuky",url:B88},
+{t:"TP Hồ Chí Minh – 2023-2024 (Đề 2)",p:"TP Hồ Chí Minh",y:"2023-2024",d:"Đề HSG cấp quận · file nghe · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"ipk",src:"tailieudieuky",url:B88},
+{t:"TP Hồ Chí Minh – 2022-2023 (Đề 1)",p:"TP Hồ Chí Minh",y:"2022-2023",d:"Đề HSG · file nghe · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"ipk",src:"tailieudieuky",url:B88},
+{t:"TP Hồ Chí Minh – 2022-2023 (Đề 2)",p:"TP Hồ Chí Minh",y:"2022-2023",d:"Đề HSG · file nghe · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"ipk",src:"tailieudieuky",url:B88},
+{t:"TP Hồ Chí Minh – 2021-2022",p:"TP Hồ Chí Minh",y:"2021-2022",d:"Đề HSG · file nghe · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"ipk",src:"tailieudieuky",url:B88},
+{t:"TP Hồ Chí Minh – 2020-2021",p:"TP Hồ Chí Minh",y:"2020-2021",d:"Đề HSG · file nghe · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"ipk",src:"tailieudieuky",url:B88},
+{t:"TP Hồ Chí Minh – 2019-2020",p:"TP Hồ Chí Minh",y:"2019-2020",d:"Đề HSG · file nghe · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"ipk",src:"tailieudieuky",url:B88},
+{t:"TP Hồ Chí Minh – 2018-2019",p:"TP Hồ Chí Minh",y:"2018-2019",d:"Đề HSG · file nghe · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"ipk",src:"tailieudieuky",url:B88},
+{t:"TP Hồ Chí Minh – 2017-2018",p:"TP Hồ Chí Minh",y:"2017-2018",d:"Đề HSG · file nghe · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"ipk",src:"tailieudieuky",url:B88},
+{t:"TP Hồ Chí Minh – 2016-2017",p:"TP Hồ Chí Minh",y:"2016-2017",d:"Đề HSG · file nghe · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"ipk",src:"tailieudieuky",url:B88},
+{t:"TP Hồ Chí Minh – 2015-2016",p:"TP Hồ Chí Minh",y:"2015-2016",d:"Đề HSG · file nghe · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"ipk",src:"tailieudieuky",url:B88},
+{t:"TP Hồ Chí Minh – 2014-2015",p:"TP Hồ Chí Minh",y:"2014-2015",d:"Đề HSG · file nghe · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"ipk",src:"tailieudieuky",url:B88},
+{t:"TP Hồ Chí Minh – 2013-2014",p:"TP Hồ Chí Minh",y:"2013-2014",d:"Đề HSG · file nghe · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"ipk",src:"tailieudieuky",url:B88},
+
+/* [Vĩnh Phúc] */
+{t:"Huyện Lâm Thao – 2022-2023",p:"Phú Thọ",y:"2022-2023",d:"11 trang · Word+PDF+MP3 · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"io",src:"tailieudieuky",url:B88},
+
+/* ==================== ĐỀ RIÊNG LẺ XÁC NHẬN URL THUVIENHOCLIEU ==================== */
+{t:"TP Bắc Ninh",p:"Bắc Ninh",y:"2023-2024",d:"10 trang · Word+PDF+MP3 đầy đủ · miễn phí",tg:["free","audio","word"],ic:"🎧",icl:"ib",src:"thuvienhoclieu",url:"https://thuvienhoclieu.com/de-thi-hsg-anh-8-tp-bac-ninh-2023-2024-co-dap-an-va-file-nghe/"},
+{t:"Huyện Gia Viễn",p:"Ninh Bình",y:"2022-2023",d:"11 trang · Word+PDF+MP3 · miễn phí",tg:["free","audio","word"],ic:"🎧",icl:"ig",src:"thuvienhoclieu",url:"https://thuvienhoclieu.com/de-thi-chon-hsg-tieng-anh-8-huyen-gia-vien-2022-2023-co-dap-an-va-file-nghe/"},
+{t:"Huyện Lâm Thao",p:"Phú Thọ",y:"2022-2023",d:"11 trang · Word+PDF+MP3 · miễn phí",tg:["free","audio","word"],ic:"🎧",icl:"io",src:"thuvienhoclieu",url:"https://thuvienhoclieu.com/de-chon-hsg-tieng-anh-8-huyen-lam-thao-2022-2023-co-dap-an-va-file-nghe/"},
+{t:"THCS Nghĩa Đạo – Thuận Thành",p:"Bắc Ninh",y:"2022-2023",d:"Đề cấp trường · 7 trang · Word+PDF · miễn phí",tg:["free","word"],ic:"🏫",icl:"ib",src:"thuvienhoclieu",url:"https://thuvienhoclieu.com/de-chon-hsg-tieng-anh-8-cap-truong-thcs-nghia-dao-co-dap-an/"},
+{t:"Đề kiểm tra chất lượng HSG (mẫu 1)",p:"Nhiều tỉnh",y:"2022-2023",d:"10 trang · Word+PDF+MP3 · miễn phí",tg:["free","audio","word"],ic:"📋",icl:"ig",src:"thuvienhoclieu",url:"https://thuvienhoclieu.com/de-kiem-tra-chat-luong-hsg-tieng-anh-8-cap-huyen-dap-an-va-file-nghe/"},
+{t:"Đề chọn HSG cấp huyện (mẫu A)",p:"Nhiều tỉnh",y:"2022-2023",d:"7 trang · MP3 · Word+PDF · miễn phí",tg:["free","audio","word"],ic:"📋",icl:"iy",src:"thuvienhoclieu",url:"https://thuvienhoclieu.com/de-chon-hsg-tieng-anh-8-cap-huyen-dap-an-va-file-nghe/"},
+{t:"Huyện Thanh Oai",p:"Hà Nội",y:"2018-2019",d:"8 trang · Word+PDF+MP3 · miễn phí",tg:["free","audio","word"],ic:"🎧",icl:"ib",src:"thuvienhoclieu",url:"https://thuvienhoclieu.com/de-thi-chon-hsg-tieng-anh-8-huyen-thanh-oai-2018-2019-co-dap-an-va-file-nghe/"},
+{t:"THCS Hai Bà Trưng",p:"Hà Nội",y:"2018-2019",d:"Đề cấp trường · Word+PDF · miễn phí",tg:["free","word"],ic:"🏫",icl:"ip",src:"thuvienhoclieu",url:"https://thuvienhoclieu.com/de-thi-chon-hoc-sinh-gioi-tieng-anh-8-truong-thcs-hai-ba-trung-2018-2019-co-dap-an/"},
+{t:"Đề thi thử HSG cấp TP (2018-2019)",p:"Nhiều TP",y:"2018-2019",d:"8 trang · Word+PDF · miễn phí",tg:["free","word"],ic:"🏙️",icl:"ip",src:"thuvienhoclieu",url:"https://thuvienhoclieu.com/de-thi-thu-hoc-sinh-gioi-tieng-anh-8-cap-thanh-pho-co-dap-an/"},
+{t:"Huyện Thanh Oai",p:"Hà Nội",y:"2016-2017",d:"Word+PDF+MP3 · miễn phí",tg:["free","audio","word"],ic:"🎧",icl:"ib",src:"thuvienhoclieu",url:"https://thuvienhoclieu.com/de-thi-chon-hoc-sinh-gioi-tieng-anh-8-huyen-thanh-oai-2016-2017-co-dap-an-va-file-nghe/"},
+{t:"Huyện Yên Lạc",p:"Vĩnh Phúc",y:"2016-2017",d:"Đề giao lưu · 12 trang · Word+PDF+MP3 · miễn phí",tg:["free","audio","word"],ic:"🎧",icl:"ip",src:"thuvienhoclieu",url:"https://thuvienhoclieu.com/de-thi-giao-luu-hsg-tieng-anh-8-huyen-yen-lac-2016-2017-co-dap-an-va-file-nghe/"},
+{t:"Đề HSG cấp huyện 2019-2020",p:"Nhiều tỉnh",y:"2019-2020",d:"9 trang · Word+PDF · miễn phí",tg:["free","word"],ic:"📄",icl:"ig",src:"thuvienhoclieu",url:"https://thuvienhoclieu.com/de-thi-hoc-sinh-gioi-tieng-anh-8-cap-huyen-2019-2020-co-dap-an/"},
+
+/* ==================== VNDOC ==================== */
+{t:"Đề chuẩn cấp huyện – Số 1",p:"Nhiều tỉnh",y:"2023-2024",d:"Đề chuẩn · file nghe MP3 · Word+PDF · VnDoc",tg:["audio","word"],ic:"📋",icl:"ib",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-8-cap-huyen-co-file-nghe-so-1-340466"},
+{t:"Đề chuẩn cấp huyện – Số 2",p:"Nhiều tỉnh",y:"2023-2024",d:"Đề chuẩn · đáp án · Word+PDF · VnDoc",tg:["word"],ic:"📋",icl:"ig",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-8-cap-huyen-co-file-nghe-so-2-340468"},
+{t:"Huyện Ý Yên",p:"Nam Định",y:"2015-2016",d:"Đề chọn HSG · đáp án chi tiết · miễn phí",tg:["free","word"],ic:"📄",icl:"ig",src:"vndoc",url:"https://vndoc.com/de-thi-chon-hoc-sinh-gioi-cap-huyen-mon-tieng-anh-lop-8-phong-gd-dt-y-yen-nam-dinh-nam-hoc-2015-2016-111775"},
+{t:"HSG Tiếng Anh 8 – Đề tham khảo số 1",p:"Nhiều tỉnh",y:"2022-2023",d:"Đề ôn thi · đáp án · Word · VnDoc miễn phí",tg:["free","word"],ic:"📋",icl:"ib",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-8-so-1-co-dap-an-274854"},
+{t:"HSG Tiếng Anh 8 – Đề tham khảo số 2",p:"Nhiều tỉnh",y:"2022-2023",d:"Đề ôn thi · đáp án · Word · VnDoc miễn phí",tg:["free","word"],ic:"📋",icl:"ig",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-8-so-2-co-dap-an-274862"},
+{t:"HSG Tiếng Anh 8 – Đề tham khảo số 3",p:"Nhiều tỉnh",y:"2022-2023",d:"Đề ôn thi · đáp án · Word · VnDoc",tg:["word"],ic:"📋",icl:"io",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-8-so-3-co-dap-an-274872"},
+{t:"HSG Tiếng Anh 8 – Đề tham khảo số 4",p:"Nhiều tỉnh",y:"2022-2023",d:"Đề ôn thi · đáp án · Word · VnDoc",tg:["word"],ic:"📋",icl:"ip",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-8-so-4-co-dap-an-274879"},
+{t:"HSG Tiếng Anh 8 – Đề tham khảo số 5",p:"Nhiều tỉnh",y:"2022-2023",d:"Đề ôn thi · đáp án · Word · VnDoc",tg:["word"],ic:"📋",icl:"iy",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-8-so-5-co-dap-an-274882"},
+{t:"HSG Tiếng Anh 8 – Đề tham khảo số 6",p:"Nhiều tỉnh",y:"2021-2022",d:"Đề ôn thi · đáp án · Word · VnDoc",tg:["word"],ic:"📋",icl:"ib",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-8-so-6-co-dap-an-274886"},
+{t:"HSG Tiếng Anh 8 – Đề tham khảo số 7",p:"Nhiều tỉnh",y:"2021-2022",d:"Đề ôn thi · đáp án · VnDoc",tg:["word"],ic:"📋",icl:"ig",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-8-so-7-co-dap-an-274891"},
+{t:"HSG Tiếng Anh 8 – Đề tham khảo số 8",p:"Nhiều tỉnh",y:"2021-2022",d:"Đề ôn thi · đáp án · VnDoc",tg:["word"],ic:"📋",icl:"io",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-8-so-8-co-dap-an-274895"},
+{t:"HSG Tiếng Anh 8 – Đề tham khảo số 9",p:"Nhiều tỉnh",y:"2021-2022",d:"Đề ôn thi · đáp án · VnDoc",tg:["word"],ic:"📋",icl:"ip",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-8-so-9-co-dap-an-274899"},
+{t:"HSG Tiếng Anh 8 – Đề tham khảo số 10",p:"Nhiều tỉnh",y:"2021-2022",d:"Đề ôn thi · đáp án · VnDoc",tg:["word"],ic:"📋",icl:"iy",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-8-so-10-co-dap-an-274908"},
+{t:"HSG Tiếng Anh 8 – Đề tham khảo số 11",p:"Nhiều tỉnh",y:"2020-2021",d:"Đề ôn thi · đáp án · VnDoc",tg:["word"],ic:"📋",icl:"ib",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-lop-8-so-11-274912"},
+{t:"HSG Tiếng Anh 8 – Đề tham khảo số 12",p:"Nhiều tỉnh",y:"2020-2021",d:"Đề ôn thi · đáp án · VnDoc",tg:["word"],ic:"📋",icl:"ig",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-lop-8-so-12-274918"},
+{t:"HSG Tiếng Anh 8 – Đề tham khảo số 13",p:"Nhiều tỉnh",y:"2020-2021",d:"Đề ôn thi · đáp án · VnDoc",tg:["word"],ic:"📋",icl:"io",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-lop-8-so-13-274921"},
+{t:"HSG Tiếng Anh 8 – Đề tham khảo số 14",p:"Nhiều tỉnh",y:"2019-2020",d:"Đề ôn thi · đáp án · VnDoc",tg:["word"],ic:"📋",icl:"ip",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-lop-8-so-14-274926"},
+{t:"HSG Tiếng Anh 8 – Đề tham khảo số 15",p:"Nhiều tỉnh",y:"2019-2020",d:"Đề ôn thi · đáp án · VnDoc",tg:["word"],ic:"📋",icl:"iy",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-lop-8-so-15-274929"},
+{t:"HSG Tiếng Anh 8 – Đề tham khảo số 16",p:"Nhiều tỉnh",y:"2019-2020",d:"Đề ôn thi · đáp án · VnDoc",tg:["word"],ic:"📋",icl:"ib",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-lop-8-so-16-274932"},
+{t:"HSG Tiếng Anh 8 – Đề tham khảo số 17",p:"Nhiều tỉnh",y:"2018-2019",d:"Đề ôn thi · đáp án · VnDoc",tg:["word"],ic:"📋",icl:"ig",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-lop-8-so-17-274936"},
+{t:"HSG Tiếng Anh 8 – Đề tham khảo số 18",p:"Nhiều tỉnh",y:"2018-2019",d:"Đề ôn thi · đáp án · VnDoc",tg:["word"],ic:"📋",icl:"io",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-lop-8-so-18-274940"},
+{t:"HSG Tiếng Anh 8 – Đề tham khảo số 19",p:"Nhiều tỉnh",y:"2018-2019",d:"Đề ôn thi · đáp án · VnDoc",tg:["word"],ic:"📋",icl:"ip",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-lop-8-so-19-274943"},
+{t:"HSG Tiếng Anh 8 – Đề tham khảo số 20",p:"Nhiều tỉnh",y:"2018-2019",d:"Đề ôn thi · đáp án · VnDoc",tg:["word"],ic:"📋",icl:"iy",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-lop-8-so-20-274946"},
+{t:"HSG Tiếng Anh 8 – Đề tham khảo số 21",p:"Nhiều tỉnh",y:"2017-2018",d:"Đề ôn thi · đáp án · VnDoc",tg:["word"],ic:"📋",icl:"ib",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-lop-8-so-21-274950"},
+{t:"HSG Tiếng Anh 8 – Đề tham khảo số 22",p:"Nhiều tỉnh",y:"2017-2018",d:"Đề ôn thi · đáp án · VnDoc",tg:["word"],ic:"📋",icl:"ig",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-lop-8-so-22-274953"},
+{t:"HSG Tiếng Anh 8 – Đề tham khảo số 23",p:"Nhiều tỉnh",y:"2017-2018",d:"Đề ôn thi · đáp án · VnDoc",tg:["word"],ic:"📋",icl:"io",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-lop-8-so-23-274956"},
+{t:"HSG Tiếng Anh 8 – Đề tham khảo số 24",p:"Nhiều tỉnh",y:"2017-2018",d:"Đề ôn thi · đáp án · VnDoc",tg:["word"],ic:"📋",icl:"ip",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-lop-8-so-24-274959"},
+{t:"HSG Tiếng Anh 8 – Đề tham khảo số 25",p:"Nhiều tỉnh",y:"2016-2017",d:"Đề ôn thi · đáp án · VnDoc",tg:["word"],ic:"📋",icl:"iy",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-lop-8-so-25-274962"},
+{t:"HSG Tiếng Anh 8 – Đề tham khảo số 26",p:"Nhiều tỉnh",y:"2016-2017",d:"Đề ôn thi · đáp án · VnDoc",tg:["word"],ic:"📋",icl:"ib",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-lop-8-so-26-274965"},
+{t:"HSG Tiếng Anh 8 – Đề tham khảo số 27",p:"Nhiều tỉnh",y:"2016-2017",d:"Đề ôn thi · đáp án · VnDoc",tg:["word"],ic:"📋",icl:"ig",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-lop-8-so-27-274969"},
+{t:"HSG Tiếng Anh 8 – Đề tham khảo số 28",p:"Nhiều tỉnh",y:"2015-2016",d:"Đề ôn thi · đáp án · VnDoc",tg:["word"],ic:"📋",icl:"io",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-lop-8-so-28-274972"},
+{t:"HSG Tiếng Anh 8 – Đề tham khảo số 29",p:"Nhiều tỉnh",y:"2015-2016",d:"Đề ôn thi · đáp án · VnDoc",tg:["word"],ic:"📋",icl:"ip",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-lop-8-so-29-274975"},
+{t:"HSG Tiếng Anh 8 – Đề tham khảo số 30",p:"Nhiều tỉnh",y:"2015-2016",d:"Đề ôn thi · đáp án · VnDoc",tg:["word"],ic:"📋",icl:"iy",src:"vndoc",url:"https://vndoc.com/30-de-thi-hoc-sinh-gioi-tieng-anh-lop-8-131250"},
+
+/* ==================== OLYMPIC ==================== */
+{t:"Olympic huyện Thường Tín",p:"Hà Nội",y:"2022-2023",d:"Đề Olympic 30/4 · 4 phần + transcript + file nghe",tg:["audio","word"],ic:"🏅",icl:"ip",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/de-olympic-tieng-anh-8-huyen-thuong-tin-ha-noi-2022-2023/"},
+{t:"Olympic cấp tỉnh 2024 – Đề chuẩn",p:"Nhiều tỉnh",y:"2023-2024",d:"Đề Olympic 30/4 mẫu chuẩn · file nghe + đáp án",tg:["audio","word","tinh"],ic:"🏆",icl:"iy",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+
+/* ==================== CẤP TỈNH XÁC NHẬN ==================== */
+{t:"Cấp tỉnh Nam Định 2023-2024",p:"Nam Định",y:"2023-2024",d:"Đề HSG cấp tỉnh · đáp án chi tiết · 10 trang",tg:["free","word","tinh"],ic:"🥇",icl:"ig",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/de-thi-hsg-tieng-anh-8-cap-tinh-nam-dinh-2023-2024/"},
+{t:"Cấp tỉnh Nam Định (trong bộ 88)",p:"Nam Định",y:"2022-2023",d:"Đề HSG cấp tỉnh lưu trữ · Word · có trong bộ 88",tg:["word","tinh"],ic:"🥇",icl:"ig",src:"tailieudieuky",url:B88},
+{t:"Cấp tỉnh Nghệ An (trong bộ 88)",p:"Nghệ An",y:"2022-2023",d:"Đề HSG cấp tỉnh · Word · có trong bộ 88",tg:["word","tinh"],ic:"🥇",icl:"io",src:"tailieudieuky",url:B88},
+{t:"Cấp tỉnh Hà Tĩnh (trong bộ 88)",p:"Hà Tĩnh",y:"2021-2022",d:"Đề HSG cấp tỉnh · Word · có trong bộ 88",tg:["word","tinh"],ic:"🥇",icl:"io",src:"tailieudieuky",url:B88},
+{t:"Cấp tỉnh Ninh Bình (trong bộ 88)",p:"Ninh Bình",y:"2022-2023",d:"Đề HSG cấp tỉnh · file nghe · có trong bộ 88",tg:["audio","word","tinh"],ic:"🥇",icl:"ip",src:"tailieudieuky",url:B88},
+{t:"Cấp tỉnh Đà Nẵng 2022-2023",p:"Đà Nẵng",y:"2022-2023",d:"Đề HSG cấp TP/tỉnh · file nghe · có trong bộ 88",tg:["audio","word","tinh"],ic:"🥇",icl:"ib",src:"tailieudieuky",url:B88},
+
+/* ==================== TỔNG HỢP ==================== */
+{t:"📦 Bộ 88 đề HSG Anh 8 (2009–2024)",p:"HN · HP · TPHCM · ĐN · Nghệ An · Nam Định · Ninh Bình · Phú Thọ · Bắc Giang...",y:"2009-2024",d:"88 đề chính thức từ nhiều Phòng GD&ĐT · Word+PDF+MP3 toàn bộ",tg:["audio","word"],ic:"📚",icl:"ip",src:"tailieudieuky",url:B88},
+{t:"📦 Series HSG Anh 8 (thuvienhoclieu)",p:"Nhiều tỉnh thành toàn quốc",y:"2016-2025",d:"Series tổng hợp tất cả đề HSG Anh 8 + file nghe",tg:["audio","word"],ic:"📚",icl:"ib",src:"thuvienhoclieu",url:"https://thuvienhoclieu.com/series/tong-hop-cac-de-thi-hoc-sinh-gioi-tieng-anh-8-co-dap-an-va-file-nghe/"},
+{t:"📦 30 đề HSG Anh 8 chọn lọc (VnDoc)",p:"Nhiều tỉnh",y:"2015-2024",d:"30 đề tổng hợp · trắc nghiệm nâng cao · có đáp án",tg:["word"],ic:"📚",icl:"ig",src:"vndoc",url:"https://vndoc.com/30-de-thi-hoc-sinh-gioi-tieng-anh-lop-8-131250"},
+];
+
+const TL={free:"✅ Miễn phí",audio:"🎧 File nghe",word:"Word/PDF",tinh:"🥇 Cấp tỉnh"};
+const yrs=["2024-2025","2023-2024","2022-2023","2021-2022","2020-2021","2019-2020","2018-2019","2017-2018","2016-2017","2015-2016"];
+function yrClass(y){
+  if(y==="2024-2025")return"yr-new";
+  if(["2023-2024","2022-2023"].includes(y))return"yr-recent";
+  if(["2021-2022","2020-2021","2019-2020","2018-2019","2017-2018","2016-2017","2015-2016"].includes(y))return"yr-mid";
+  return"yr-old";
+}
+function yrBadge(y){
+  if(y==="2024-2025")return"cy-new";
+  if(["2023-2024","2022-2023"].includes(y))return"cy-recent";
+  if(["2021-2022","2020-2021","2019-2020","2018-2019","2017-2018","2016-2017","2015-2016"].includes(y))return"cy-mid";
+  return"cy-old";
+}
+function inGroup(y,g){
+  if(g==="2024-2025")return y==="2024-2025";
+  if(g==="2023-2024")return y==="2023-2024";
+  if(g==="2022-2023")return y==="2022-2023";
+  if(g==="2021-2022")return y==="2021-2022";
+  if(g==="2020-2021")return y==="2020-2021";
+  if(g==="2018-2020")return["2019-2020","2018-2019"].includes(y);
+  if(g==="2016-2018")return["2016-2017","2017-2018"].includes(y);
+  if(g==="truoc2016")return!yrs.includes(y);
+  return true;
+}
+
+function render(items){
+  const g=document.getElementById('grid'),nr=document.getElementById('nr'),rc=document.getElementById('rc');
+  g.innerHTML='';
+  if(!items.length){nr.style.display='block';rc.textContent='';return;}
+  nr.style.display='none';
+  rc.textContent=`Hiển thị ${items.length} / ${D.length} đề`;
+  items.forEach((item,i)=>{
+    const tgs=item.tg.filter(t=>t!=='tinh').map(t=>`<span class="tag t${t==='audio'?'a':t==='free'?'f':t==='tinh'?'pk':'w'}">${TL[t]||t}</span>`).join('');
+    const a=document.createElement('a');
+    a.href=item.url;a.target='_blank';a.rel='noopener';
+    a.className=`card ${yrClass(item.y)}`;
+    a.style.animationDelay=`${Math.min(i*.025,.65)}s`;
+    a.innerHTML=`<div class="ch"><div class="ci ${item.icl}">${item.ic}</div><span class="cy2 ${yrBadge(item.y)}">${item.y}</span></div><div class="ct">${item.t}</div><div class="cs">📍 ${item.p}<br>${item.d}</div><div class="tags">${tgs}${item.tg.includes('tinh')?'<span class="tag tpk">🥇 Cấp tỉnh</span>':''}</div><div class="cdot"></div>`;
+    g.appendChild(a);
+  });
+}
+
+let cf='all',cs='';
+function applyF(){
+  render(D.filter(item=>{
+    const s=(item.t+item.p+item.y+item.d).toLowerCase();
+    const ms=!cs||s.includes(cs);
+    let mf=true;
+    if(cf==='all')mf=true;
+    else if(cf==='audio')mf=item.tg.includes('audio');
+    else if(cf==='free')mf=item.tg.includes('free');
+    else if(cf==='tinh')mf=item.tg.includes('tinh');
+    else if(cf==='tailieudieuky')mf=item.src==='tailieudieuky';
+    else if(cf==='thuvienhoclieu')mf=item.src==='thuvienhoclieu';
+    else if(cf==='vndoc')mf=item.src==='vndoc';
+    else mf=inGroup(item.y,cf);
+    return ms&&mf;
+  }));
+}
+
+function animCount(el,target){
+  let n=0;const step=Math.ceil(target/55);
+  const t=setInterval(()=>{n=Math.min(n+step,target);el.textContent=n;if(n>=target)clearInterval(t);},22);
+}
+
+document.getElementById('si').addEventListener('input',e=>{cs=e.target.value.toLowerCase().trim();applyF();});
+document.querySelectorAll('.fb').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelectorAll('.fb').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');cf=b.dataset.f;applyF();
+  });
+});
+
+setTimeout(()=>{animCount(document.getElementById('tc'),D.length);render(D);},1700);
+</script>
+</body>
+</html>
