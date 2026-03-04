@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HSG Tiếng Anh 8 · by Nhật Minh</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#05070f;--bg2:#080c18;--card:#0c1020;--card2:#111827;
+  --border:rgba(99,120,255,.18);--border2:rgba(99,120,255,.08);
+  --blue:#6378ff;--cyan:#22d3ee;--pink:#f472b6;
+  --amber:#fbbf24;--green:#34d399;--violet:#a78bfa;
+  --text:#f0f4ff;--muted:#6b7a99;--muted2:#3d4a6b;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+::selection{background:rgba(99,120,255,.35);color:#fff;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
+
+/* BG */
+.bg-mesh{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 80% 50% at 10% 0%,rgba(99,120,255,.12) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 90% 10%,rgba(244,114,182,.09) 0%,transparent 55%),radial-gradient(ellipse 50% 60% at 50% 100%,rgba(34,211,238,.07) 0%,transparent 60%),radial-gradient(ellipse 40% 30% at 80% 60%,rgba(167,139,250,.06) 0%,transparent 50%);animation:meshShift 18s ease-in-out infinite alternate;transition:filter .4s;}
+@keyframes meshShift{0%{filter:hue-rotate(0deg) brightness(1);}50%{filter:hue-rotate(15deg) brightness(1.05);}100%{filter:hue-rotate(-10deg) brightness(.97);}}
+.bg-grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");}
+.bg-grid{position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(99,120,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(99,120,255,.04) 1px,transparent 1px);background-size:60px 60px;}
+.scroll-prog{position:fixed;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--blue),var(--cyan),var(--pink));transform:scaleX(0);transform-origin:left;z-index:9999;}
+.wrap{position:relative;z-index:2;}
+
+/* ═══════════════════════════
+   LOGIN PAGE
+═══════════════════════════ */
+#loginPage{
+  position:fixed;inset:0;z-index:5000;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--bg);padding:20px;
+}
+.lo-orbs{position:absolute;inset:0;overflow:hidden;pointer-events:none;}
+.lo-orbs span{position:absolute;border-radius:50%;filter:blur(80px);animation:loOrb 8s ease-in-out infinite;}
+.lo-orbs span:nth-child(1){width:400px;height:400px;background:rgba(99,120,255,.12);top:-100px;left:-100px;}
+.lo-orbs span:nth-child(2){width:300px;height:300px;background:rgba(244,114,182,.1);bottom:-80px;right:-80px;animation-delay:-4s;}
+.lo-orbs span:nth-child(3){width:250px;height:250px;background:rgba(34,211,238,.08);top:40%;left:40%;animation-delay:-2s;}
+@keyframes loOrb{0%,100%{transform:scale(1);}50%{transform:scale(1.12) translate(10px,-15px);}}
+
+.auth-box{
+  position:relative;z-index:1;width:100%;max-width:420px;
+  background:linear-gradient(160deg,#0e1528,#080c18);
+  border:1px solid rgba(99,120,255,.25);border-radius:24px;overflow:hidden;
+  box-shadow:0 40px 80px rgba(0,0,0,.7),0 0 0 1px rgba(99,120,255,.1),inset 0 1px 0 rgba(255,255,255,.06);
+  animation:boxIn .6s cubic-bezier(.34,1.2,.64,1) both;
+}
+@keyframes boxIn{from{opacity:0;transform:translateY(30px) scale(.95);}to{opacity:1;transform:none;}}
+.auth-glow{position:absolute;top:-100px;right:-80px;width:300px;height:300px;border-radius:50%;filter:blur(80px);background:radial-gradient(circle,rgba(99,120,255,.2),transparent 70%);pointer-events:none;}
+
+.auth-tabs{display:flex;border-bottom:1px solid rgba(99,120,255,.12);}
+.auth-tab{flex:1;padding:18px;text-align:center;font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--muted);cursor:pointer;letter-spacing:.5px;transition:all .2s;border-bottom:2px solid transparent;margin-bottom:-1px;}
+.auth-tab.active{color:var(--blue);border-bottom-color:var(--blue);}
+.auth-tab:hover:not(.active){color:var(--text);}
+
+.auth-body{padding:32px 32px 36px;}
+.auth-logo{text-align:center;margin-bottom:28px;}
+.auth-logo-icon{display:inline-flex;align-items:center;justify-content:center;width:56px;height:56px;border-radius:16px;background:linear-gradient(135deg,rgba(99,120,255,.2),rgba(167,139,250,.15));border:1px solid rgba(99,120,255,.3);font-size:26px;margin-bottom:10px;animation:iconPulse 3s ease-in-out infinite;}
+@keyframes iconPulse{0%,100%{box-shadow:0 0 0 0 rgba(99,120,255,.3);}50%{box-shadow:0 0 0 8px rgba(99,120,255,0);}}
+.auth-logo h2{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;letter-spacing:-.3px;}
+.auth-logo p{color:var(--muted);font-size:12px;margin-top:3px;}
+
+.auth-panel{display:none;flex-direction:column;gap:14px;}
+.auth-panel.active{display:flex;}
+
+.field{position:relative;}
+.field label{display:block;font-size:10px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px;}
+.field input{width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:12px 16px 12px 44px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--text);outline:none;transition:all .2s;}
+.field input:focus{border-color:var(--blue);background:rgba(99,120,255,.06);box-shadow:0 0 0 3px rgba(99,120,255,.12);}
+.field input::placeholder{color:var(--muted2);}
+.field-ic{position:absolute;left:14px;bottom:12px;font-size:16px;pointer-events:none;}
+
+.auth-btn{width:100%;padding:14px;border-radius:12px;border:none;cursor:pointer;background:linear-gradient(135deg,var(--blue),var(--violet));color:#fff;font-family:'Syne',sans-serif;font-size:14px;font-weight:700;letter-spacing:.3px;transition:all .25s cubic-bezier(.34,1.56,.64,1);box-shadow:0 6px 24px rgba(99,120,255,.35);position:relative;overflow:hidden;}
+.auth-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.15),transparent);opacity:0;transition:opacity .2s;}
+.auth-btn:hover{transform:translateY(-2px) scale(1.02);box-shadow:0 10px 32px rgba(99,120,255,.5);}
+.auth-btn:hover::before{opacity:1;}
+.auth-btn:active{transform:scale(.97);}
+
+.auth-divider{display:flex;align-items:center;gap:10px;color:var(--muted2);font-size:11px;}
+.auth-divider::before,.auth-divider::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.07);}
+
+.auth-guest{width:100%;padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,.1);cursor:pointer;background:rgba(255,255,255,.04);color:var(--muted);font-family:'DM Sans',sans-serif;font-size:13px;transition:all .2s;}
+.auth-guest:hover{background:rgba(255,255,255,.08);color:var(--text);border-color:rgba(255,255,255,.2);}
+
+.auth-err{display:none;background:rgba(244,114,182,.1);border:1px solid rgba(244,114,182,.25);border-radius:10px;padding:10px 14px;font-size:12px;color:var(--pink);text-align:center;}
+.auth-err.show{display:block;}
+.auth-ok{display:none;background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.25);border-radius:10px;padding:10px 14px;font-size:12px;color:var(--green);text-align:center;}
+.auth-ok.show{display:block;}
+
+#loginPage.fade-out{animation:pgFade .5s ease forwards;}
+@keyframes pgFade{to{opacity:0;transform:scale(1.02);}}
+
+/* ═══════════════════════════
+   USER BADGE
+═══════════════════════════ */
+.user-badge{position:fixed;top:16px;right:16px;z-index:800;display:none;align-items:center;gap:8px;background:rgba(99,120,255,.12);border:1px solid rgba(99,120,255,.25);border-radius:100px;padding:6px 14px 6px 8px;font-size:12px;color:var(--violet);font-family:'JetBrains Mono',monospace;cursor:pointer;transition:all .2s;}
+.user-badge:hover{background:rgba(244,114,182,.15);border-color:rgba(244,114,182,.3);color:var(--pink);}
+.user-badge.show{display:flex;}
+.user-av{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--violet));display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;font-family:'Syne',sans-serif;}
+
+/* ═══════════════════════════
+   HEADER
+═══════════════════════════ */
+header{padding:52px 24px 36px;text-align:center;position:relative;}
+.orb{position:absolute;border-radius:50%;filter:blur(60px);pointer-events:none;animation:orbFloat 8s ease-in-out infinite;}
+.orb1{width:300px;height:300px;background:rgba(99,120,255,.15);top:-80px;left:-60px;}
+.orb2{width:200px;height:200px;background:rgba(244,114,182,.12);top:-40px;right:-40px;animation-delay:-3s;}
+.orb3{width:250px;height:250px;background:rgba(34,211,238,.08);bottom:-60px;left:50%;transform:translateX(-50%);animation-delay:-5s;}
+@keyframes orbFloat{0%,100%{transform:translateY(0) scale(1);}50%{transform:translateY(-20px) scale(1.05);}}
+.orb3{animation:orbFloat3 10s ease-in-out infinite;}
+@keyframes orbFloat3{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(-15px);}}
+.sig{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,rgba(99,120,255,.15),rgba(244,114,182,.1));border:1px solid rgba(99,120,255,.3);border-radius:100px;padding:6px 16px 6px 10px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--violet);letter-spacing:.5px;margin-bottom:20px;animation:fadeDn .6s ease both;}
+.sig-dot{width:7px;height:7px;background:var(--green);border-radius:50%;box-shadow:0 0 8px var(--green);animation:pulse 2s ease infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.6;transform:scale(.8);}}
+h1{font-family:'Syne',sans-serif;font-size:clamp(28px,6vw,56px);font-weight:800;line-height:1.1;letter-spacing:-1.5px;margin-bottom:10px;animation:fadeDn .7s .1s ease both;}
+.h1-line1{display:block;background:linear-gradient(135deg,#fff 0%,rgba(99,120,255,.9) 60%,rgba(34,211,238,.8) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.h1-line2{display:block;background:linear-gradient(135deg,rgba(244,114,182,.9),rgba(167,139,250,.9));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.sub{color:var(--muted);font-size:13px;animation:fadeDn .7s .2s ease both;margin-bottom:24px;}
+@keyframes fadeDn{from{opacity:0;transform:translateY(-16px);}to{opacity:1;transform:translateY(0);}}
+
+/* Cosmos open trigger — header button only */
+.btn-cosmos{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,rgba(99,120,255,.18),rgba(167,139,250,.12));border:1px solid rgba(99,120,255,.35);border-radius:100px;padding:10px 22px;font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--violet);cursor:pointer;transition:all .25s;margin-top:20px;position:relative;overflow:hidden;letter-spacing:.3px;animation:fadeDn .7s .4s ease both;}
+.btn-cosmos::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.1),transparent);opacity:0;transition:opacity .2s;}
+.btn-cosmos:hover{background:linear-gradient(135deg,rgba(99,120,255,.3),rgba(167,139,250,.2));border-color:rgba(99,120,255,.6);transform:translateY(-2px);box-shadow:0 8px 24px rgba(99,120,255,.3);}
+.btn-cosmos:hover::before{opacity:1;}
+.btn-cosmos-icon{font-size:17px;animation:cSpin 4s ease-in-out infinite;}
+@keyframes cSpin{0%,85%,100%{transform:rotate(0deg);}90%{transform:rotate(180deg);}}
+
+.stats{display:flex;justify-content:center;border:1px solid var(--border);border-radius:16px;overflow:hidden;max-width:440px;margin:0 auto;animation:fadeDn .7s .3s ease both;background:rgba(99,120,255,.04);}
+.stat{flex:1;padding:14px 10px;text-align:center;border-right:1px solid var(--border);transition:background .2s;}
+.stat:last-child{border-right:none;}
+.stat:hover{background:rgba(99,120,255,.08);}
+.stat-num{font-family:'Syne',sans-serif;font-size:24px;font-weight:800;background:linear-gradient(135deg,var(--blue),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:block;line-height:1;}
+.stat-label{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;margin-top:3px;display:block;}
+
+/* ═══════════════════════════
+   CONTROLS
+═══════════════════════════ */
+.controls{max-width:900px;margin:28px auto 0;padding:0 20px;animation:fadeUp .6s .4s ease both;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+.search-wrap{position:relative;margin-bottom:14px;}
+.search-wrap input{width:100%;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 20px 14px 50px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--text);outline:none;transition:all .2s;}
+.search-wrap input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(99,120,255,.15);background:var(--card2);}
+.search-wrap input::placeholder{color:var(--muted2);}
+.search-ic{position:absolute;left:18px;top:50%;transform:translateY(-50%);font-size:16px;pointer-events:none;}
+.filters{display:flex;gap:6px;flex-wrap:wrap;}
+.fb{background:rgba(255,255,255,.04);border:1px solid var(--border2);color:var(--muted);font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;padding:6px 13px;border-radius:100px;cursor:pointer;transition:all .2s;white-space:nowrap;}
+.fb:hover{border-color:var(--blue);color:var(--blue);background:rgba(99,120,255,.1);}
+.fb.active{background:rgba(99,120,255,.18);border-color:var(--blue);color:#a5b4ff;font-weight:600;}
+.fb.gc:hover,.fb.gc.active{border-color:var(--green);color:var(--green);background:rgba(52,211,153,.1);}
+.fb.oc:hover,.fb.oc.active{border-color:var(--amber);color:var(--amber);background:rgba(251,191,36,.1);}
+.fb.pc:hover,.fb.pc.active{border-color:var(--pink);color:var(--pink);background:rgba(244,114,182,.1);}
+.diff-bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:10px;padding:10px 14px;background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.07);border-radius:14px;}
+.diff-bar-lbl{font-size:10px;font-weight:600;color:var(--muted2);text-transform:uppercase;letter-spacing:1.5px;white-space:nowrap;}
+.dfb{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);color:var(--muted);font-size:11px;padding:5px 12px;border-radius:100px;cursor:pointer;transition:all .2s;}
+.dfb.active-all{border-color:var(--blue);color:var(--blue);background:rgba(99,120,255,.12);}
+.dfb.active-de{border-color:var(--cyan);color:var(--cyan);background:rgba(34,211,238,.1);}
+.dfb.active-de-vua{border-color:var(--green);color:var(--green);background:rgba(52,211,153,.1);}
+.dfb.active-tb{border-color:var(--amber);color:var(--amber);background:rgba(251,191,36,.1);}
+.dfb.active-kho{border-color:#fb923c;color:#fb923c;background:rgba(251,146,60,.1);}
+.dfb.active-rat-kho{border-color:var(--pink);color:var(--pink);background:rgba(244,114,182,.1);}
+.dfb:hover{border-color:rgba(255,255,255,.2);color:var(--text);}
+
+/* ═══════════════════════════
+   GRID & CARDS
+═══════════════════════════ */
+main{max-width:900px;margin:20px auto;padding:0 20px 80px;}
+.list-meta{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+#rc{color:var(--muted);font-size:12px;font-family:'JetBrains Mono',monospace;}
+.stitle{font-size:10px;font-weight:600;color:var(--muted2);text-transform:uppercase;letter-spacing:2.5px;}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(265px,1fr));gap:12px;}
+.card{background:var(--card);border:1px solid var(--border2);border-radius:16px;padding:18px;cursor:pointer;position:relative;overflow:hidden;transition:transform .22s cubic-bezier(.34,1.56,.64,1),border-color .2s,box-shadow .2s;animation:cardIn .4s ease both;}
+@keyframes cardIn{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+.card:nth-child(1){animation-delay:.05s}.card:nth-child(2){animation-delay:.08s}.card:nth-child(3){animation-delay:.11s}.card:nth-child(4){animation-delay:.14s}.card:nth-child(5){animation-delay:.17s}.card:nth-child(6){animation-delay:.20s}.card:nth-child(n+7){animation-delay:.22s}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;opacity:0;transition:opacity .2s;}
+.card.yr-new::before{background:linear-gradient(90deg,var(--violet),var(--blue),var(--cyan));}
+.card.yr-recent::before{background:linear-gradient(90deg,var(--blue),var(--cyan));}
+.card.yr-mid::before{background:linear-gradient(90deg,var(--green),var(--cyan));}
+.card.yr-old::before{background:linear-gradient(90deg,var(--amber),var(--green));}
+.card::after{content:'';position:absolute;inset:0;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.03) 50%,transparent 60%);transform:translateX(-100%);transition:transform .5s;pointer-events:none;}
+.card:hover{transform:translateY(-4px) scale(1.01);border-color:rgba(99,120,255,.4);box-shadow:0 12px 36px rgba(0,0,0,.4),0 0 0 1px rgba(99,120,255,.15),inset 0 1px 0 rgba(255,255,255,.06);}
+.card:hover::before{opacity:1;}
+.card:hover::after{transform:translateX(100%);}
+.ch{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:10px;}
+.ci{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
+.ib{background:rgba(99,120,255,.15);}.ig{background:rgba(52,211,153,.15);}.io{background:rgba(251,191,36,.15);}.ip{background:rgba(244,114,182,.15);}.iy{background:rgba(34,211,238,.15);}
+.cy{font-size:9px;font-weight:700;padding:3px 8px;border-radius:6px;white-space:nowrap;font-family:'JetBrains Mono',monospace;letter-spacing:.3px;}
+.cy-new{background:rgba(167,139,250,.2);color:var(--violet);}.cy-recent{background:rgba(99,120,255,.2);color:#a5b4ff;}.cy-mid{background:rgba(52,211,153,.15);color:var(--green);}.cy-old{background:rgba(251,191,36,.15);color:var(--amber);}
+.ct{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--text);line-height:1.3;margin-bottom:4px;letter-spacing:-.2px;}
+.cs{font-size:11px;color:var(--muted);margin-bottom:10px;line-height:1.5;}
+.tags{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:12px;}
+.tag{font-size:9px;font-weight:600;padding:2px 7px;border-radius:5px;text-transform:uppercase;letter-spacing:.6px;}
+.tf{background:rgba(52,211,153,.12);color:#6ee7b7;}.ta{background:rgba(99,120,255,.12);color:#a5b4ff;}.tw{background:rgba(251,191,36,.12);color:#fcd34d;}.tb2{background:rgba(244,114,182,.12);color:#f9a8d4;}.tt{background:rgba(34,211,238,.12);color:#67e8f9;}
+.card-foot{display:flex;align-items:center;justify-content:space-between;padding-top:10px;border-top:1px solid var(--border2);}
+.card-src{font-size:9px;color:var(--muted2);font-family:'JetBrains Mono',monospace;}
+.card-go{font-size:11px;font-weight:600;color:var(--blue);display:flex;align-items:center;gap:3px;opacity:0;transform:translateX(-4px);transition:opacity .2s,transform .2s;}
+.card:hover .card-go{opacity:1;transform:translateX(0);}
+.nr{text-align:center;padding:60px 20px;display:none;}
+.nr span{font-size:44px;display:block;margin-bottom:10px;}
+.nr p{color:var(--muted);font-size:13px;}
+
+.btn-top{position:fixed;bottom:28px;right:22px;z-index:800;width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);color:var(--muted);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;opacity:0;transform:translateY(10px);pointer-events:none;}
+.btn-top.show{opacity:1;transform:translateY(0);pointer-events:all;}
+.btn-top:hover{background:rgba(99,120,255,.2);border-color:var(--blue);color:var(--blue);}
+
+/* ═══════════════════════════
+   MODAL
+═══════════════════════════ */
+.overlay{position:fixed;inset:0;z-index:1000;background:rgba(3,5,14,.8);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .25s;}
+.overlay.open{opacity:1;pointer-events:all;}
+.modal{background:linear-gradient(160deg,#0e1528,#080c18 60%,#0a0d1a 100%);border:1px solid rgba(99,120,255,.25);border-radius:24px;width:100%;max-width:500px;overflow:hidden;transform:scale(.9) translateY(20px);transition:transform .35s cubic-bezier(.34,1.3,.64,1),opacity .25s;opacity:0;box-shadow:0 40px 80px rgba(0,0,0,.7),0 0 0 1px rgba(99,120,255,.1),inset 0 1px 0 rgba(255,255,255,.06);position:relative;}
+.overlay.open .modal{transform:scale(1) translateY(0);opacity:1;}
+.modal-glow{position:absolute;pointer-events:none;width:400px;height:300px;border-radius:50%;top:-100px;right:-80px;filter:blur(80px);opacity:.6;transition:background .4s;}
+.modal-header{padding:28px 28px 20px;position:relative;}
+.modal-toprow{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.modal-badges{display:flex;gap:7px;align-items:center;flex-wrap:wrap;}
+.modal-yr-badge{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;padding:4px 10px;border-radius:7px;letter-spacing:.3px;}
+.modal-src-badge{font-size:10px;padding:4px 10px;border-radius:7px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:var(--muted);}
+.modal-close{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:var(--muted);width:32px;height:32px;border-radius:9px;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;}
+.modal-close:hover{background:rgba(244,114,182,.15);border-color:rgba(244,114,182,.4);color:var(--pink);}
+.modal-title{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:#fff;line-height:1.25;letter-spacing:-.4px;margin-bottom:6px;}
+.modal-loc{font-size:13px;color:var(--cyan);font-weight:500;}
+.modal-sep{height:1px;background:linear-gradient(90deg,transparent,rgba(99,120,255,.3),transparent);border:none;margin:0;}
+.modal-body{padding:20px 28px 28px;display:flex;flex-direction:column;gap:14px;}
+.diff-sec{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:14px 16px;}
+.diff-lbl{font-size:10px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:10px;}
+.diff-bw{display:flex;align-items:center;gap:10px;}
+.diff-bg{flex:1;height:6px;background:rgba(255,255,255,.08);border-radius:100px;overflow:hidden;}
+.diff-fill{height:100%;border-radius:100px;transition:width .8s cubic-bezier(.34,1.2,.64,1);}
+.diff-score{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;min-width:36px;text-align:right;}
+.diff-text{font-size:11px;font-weight:600;margin-top:6px;}
+.diff-stars{font-size:14px;letter-spacing:2px;margin-top:2px;}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.info-box{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:12px 14px;}
+.info-box-lbl{font-size:9px;font-weight:600;color:var(--muted2);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px;}
+.info-box-val{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;}
+.modal-desc{font-size:13px;color:var(--muted);line-height:1.6;}
+.modal-actions{display:flex;gap:10px;}
+.btn-primary{flex:1;padding:13px 20px;background:linear-gradient(135deg,var(--blue),var(--violet));border:none;border-radius:12px;color:#fff;font-family:'Syne',sans-serif;font-size:13px;font-weight:700;cursor:pointer;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:6px;transition:all .2s;box-shadow:0 6px 20px rgba(99,120,255,.35);}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(99,120,255,.5);}
+.btn-sec{padding:13px 18px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:12px;color:var(--muted);font-family:'Syne',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;}
+.btn-sec:hover{background:rgba(255,255,255,.09);color:var(--text);}
+.modal.rflash{animation:rflash .5s ease;}
+@keyframes rflash{0%{box-shadow:0 0 0 0 rgba(99,120,255,.8);}50%{box-shadow:0 0 60px 20px rgba(99,120,255,.4);}100%{box-shadow:0 40px 80px rgba(0,0,0,.7);}}
+
+/* ═══════════════════════════
+   COSMOS PORTAL
+   Random button lives ONLY here
+═══════════════════════════ */
+.cosmos-ov{position:fixed;inset:0;z-index:10000;background:radial-gradient(ellipse at 50% 50%,#000510,#000208 60%,#000);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .4s;overflow:hidden;}
+.cosmos-ov.open{opacity:1;pointer-events:all;}
+#cCanvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;}
+.cosmos-portal{position:relative;z-index:10;display:flex;flex-direction:column;align-items:center;gap:20px;}
+.cosmos-title{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;letter-spacing:-.5px;background:linear-gradient(135deg,#fff,rgba(167,139,250,1) 50%,rgba(34,211,238,.9));-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-align:center;animation:ctFloat 4s ease-in-out infinite;}
+@keyframes ctFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-4px);}}
+.cosmos-sub{color:rgba(107,122,153,.9);font-size:12px;text-align:center;letter-spacing:1.5px;text-transform:uppercase;font-family:'JetBrains Mono',monospace;}
+.cosmos-diffs{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;max-width:360px;}
+.cdopt{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.5px;padding:6px 12px;border-radius:100px;cursor:pointer;border:1px solid rgba(255,255,255,.12);color:rgba(107,122,153,.9);background:rgba(255,255,255,.04);transition:all .2s;}
+.cdopt:hover{border-color:rgba(167,139,250,.5);color:#a78bfa;background:rgba(167,139,250,.1);}
+.cdopt.sel{background:rgba(167,139,250,.15);border-color:var(--violet);color:var(--violet);}
+.portal-ring{position:relative;width:220px;height:220px;flex-shrink:0;}
+.portal-ring canvas{position:absolute;inset:0;pointer-events:none;}
+.portal-ctr{position:absolute;inset:20px;border-radius:50%;background:radial-gradient(circle,rgba(167,139,250,.15),rgba(99,120,255,.05) 60%,transparent);display:flex;align-items:center;justify-content:center;font-size:42px;animation:pBreath 3s ease-in-out infinite;cursor:pointer;transition:transform .2s;}
+.portal-ctr:hover{transform:scale(1.1);}
+@keyframes pBreath{0%,100%{transform:scale(1);filter:brightness(1);}50%{transform:scale(1.06);filter:brightness(1.3);}}
+
+/* THE ONE AND ONLY RANDOM BUTTON — lives inside cosmos */
+.cosmos-launch{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;letter-spacing:.5px;background:linear-gradient(135deg,#4f6bff,#a78bfa,#22d3ee);background-size:200% 200%;animation:btnShift 4s ease infinite;border:none;color:#fff;padding:14px 40px;border-radius:100px;cursor:pointer;box-shadow:0 6px 30px rgba(99,120,255,.4);transition:all .25s cubic-bezier(.34,1.56,.64,1);position:relative;overflow:hidden;}
+@keyframes btnShift{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
+.cosmos-launch::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.15),transparent);opacity:0;transition:opacity .2s;}
+.cosmos-launch:hover{transform:translateY(-3px) scale(1.04);box-shadow:0 12px 40px rgba(99,120,255,.6);}
+.cosmos-launch:hover::before{opacity:1;}
+.cosmos-launch:active{transform:scale(.97);}
+
+.cosmos-cancel{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(61,74,107,.8);cursor:pointer;letter-spacing:1.5px;text-transform:uppercase;transition:color .2s;margin-top:-8px;}
+.cosmos-cancel:hover{color:var(--muted);}
+
+.warp-ov{position:fixed;inset:0;z-index:10001;pointer-events:none;opacity:0;}
+.warp-ov.active{animation:warpFl .8s ease forwards;}
+@keyframes warpFl{0%{opacity:0;}15%{opacity:1;background:radial-gradient(ellipse 30% 30% at 50% 50%,rgba(255,255,255,.9),rgba(167,139,250,.6) 40%,rgba(0,0,5,.95));}60%{opacity:1;background:radial-gradient(ellipse 200% 200% at 50% 50%,rgba(255,255,255,.05),rgba(99,120,255,.3) 30%,rgba(0,0,0,.95) 70%);}100%{opacity:0;}}
+
+/* Floating particles */
+.particle{position:fixed;border-radius:50%;pointer-events:none;z-index:1;animation:pRise linear forwards;}
+@keyframes pRise{0%{opacity:.7;transform:translateY(0) scale(1);}100%{opacity:0;transform:translateY(-100vh) scale(0);}}
+
+/* ─── Signature image ─── */
+.sig-img-wrap{
+  display:inline-block;cursor:pointer;margin-bottom:20px;
+  border-radius:12px;padding:6px 10px;
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.06);
+  transition:transform .25s,box-shadow .25s,background .25s;
+  position:relative;z-index:2;
+}
+.sig-img-wrap:hover{
+  transform:translateY(-3px) scale(1.03);
+  background:rgba(99,120,255,.07);
+  box-shadow:0 8px 28px rgba(99,120,255,.2);
+}
+.sig-img{
+  display:block;height:52px;width:auto;max-width:280px;
+  filter:invert(1) brightness(0.85) drop-shadow(0 2px 8px rgba(99,120,255,.25));
+  transition:filter .25s;
+  vertical-align:middle;
+}
+.sig-img-wrap:hover .sig-img{
+  filter:invert(1) brightness(1) drop-shadow(0 4px 16px rgba(99,120,255,.5));
+}
+.sig-img-wrap::after{
+  content:'✦ Click để khám phá ✦';
+  position:absolute;bottom:-22px;left:50%;
+  transform:translateX(-50%);
+  font-size:9px;color:rgba(99,120,255,.5);
+  letter-spacing:1.5px;font-family:'JetBrains Mono',monospace;
+  white-space:nowrap;opacity:0;transition:opacity .2s;
+}
+.sig-img-wrap:hover::after{opacity:1;}
+</style>
+</head>
+<body>
+
+<div class="bg-mesh" id="bgMesh"></div>
+<div class="bg-grain"></div>
+<div class="bg-grid"></div>
+<div class="scroll-prog" id="scrollProg"></div>
+
+<!-- USER BADGE -->
+<div class="user-badge" id="userBadge" onclick="logout()">
+  <div class="user-av" id="userAv">?</div>
+  <span id="userNameSpan">Khách</span>
+  <span style="opacity:.4;font-size:10px;margin-left:2px;">✕</span>
+</div>
+
+<!-- ══════════════════════════════════
+     LOGIN / SIGNUP
+══════════════════════════════════════ -->
+<div id="loginPage">
+  <div class="lo-orbs"><span></span><span></span><span></span></div>
+  <div class="auth-box">
+    <div class="auth-glow"></div>
+    <div class="auth-tabs">
+      <div class="auth-tab active" id="tabLogin" onclick="switchTab('login')">Đăng nhập</div>
+      <div class="auth-tab" id="tabSignup" onclick="switchTab('signup')">Tạo tài khoản</div>
+    </div>
+    <div class="auth-body">
+      <div class="auth-logo">
+        <div class="auth-logo-icon">📚</div>
+        <h2>HSG Tiếng Anh 8</h2>
+        <p>Kho đề thi chọn lọc · by Nhật Minh</p>
+      </div>
+
+      <!-- LOGIN -->
+      <div class="auth-panel active" id="panelLogin">
+        <div class="auth-err" id="loginErr"></div>
+        <div class="field">
+          <label>Tên tài khoản</label>
+          <span class="field-ic">👤</span>
+          <input type="text" id="loginUser" placeholder="Nhập tên tài khoản..." autocomplete="username"/>
+        </div>
+        <div class="field">
+          <label>Mật khẩu</label>
+          <span class="field-ic">🔑</span>
+          <input type="password" id="loginPass" placeholder="Nhập mật khẩu..." autocomplete="current-password"/>
+        </div>
+        <button class="auth-btn" onclick="doLogin()">Đăng nhập →</button>
+        <div class="auth-divider">hoặc</div>
+        <button class="auth-guest" onclick="enterAsGuest()">👋 Vào xem không cần đăng nhập</button>
+      </div>
+
+      <!-- SIGNUP -->
+      <div class="auth-panel" id="panelSignup">
+        <div class="auth-err" id="signupErr"></div>
+        <div class="auth-ok" id="signupOk"></div>
+        <div class="field">
+          <label>Tên tài khoản</label>
+          <span class="field-ic">👤</span>
+          <input type="text" id="signupUser" placeholder="Đặt tên tài khoản (≥3 ký tự)..." autocomplete="username"/>
+        </div>
+        <div class="field">
+          <label>Mật khẩu</label>
+          <span class="field-ic">🔑</span>
+          <input type="password" id="signupPass" placeholder="Đặt mật khẩu (≥6 ký tự)..." autocomplete="new-password"/>
+        </div>
+        <div class="field">
+          <label>Xác nhận mật khẩu</label>
+          <span class="field-ic">✅</span>
+          <input type="password" id="signupPass2" placeholder="Nhập lại mật khẩu..." autocomplete="new-password"/>
+        </div>
+        <button class="auth-btn" onclick="doSignup()">Tạo tài khoản →</button>
+        <div class="auth-divider">hoặc</div>
+        <button class="auth-guest" onclick="enterAsGuest()">👋 Vào xem không cần tạo tài khoản</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     MAIN APP (hidden until login)
+══════════════════════════════════════ -->
+<div class="wrap" id="appWrap" style="display:none;">
+<header>
+  <div class="orb orb1"></div><div class="orb orb2"></div><div class="orb orb3"></div>
+  <div class="sig-img-wrap" onclick="openLovePage()" title="✦ Nhật Minh ✦">
+    <img class="sig-img" src="data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCASwB9ADASIAAhEBAxEB/8QAHQABAAICAwEBAAAAAAAAAAAAAAcIBgkCAwUEAf/EAGAQAQABAwMBBAUFCAwKBwYEBwABAgMEBQYRBwgSITETQVFhcQkUIjKBFUJSYpGSlNMWGCMzVnKCoaKxwcIXQ0aDhJOVssPSJERjc4Wj0TRFU6Sz5CUmxOE1V2al1OLw/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/ALlgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA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AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/9k=" alt="Chữ ký Nhật Minh"/>
+  </div>
+  <h1>
+    <span class="h1-line1">Tra Cứu Đề Thi</span>
+    <span class="h1-line2">HSG Tiếng Anh 8</span>
+  </h1>
+  <p class="sub">Tổng hợp đề thi HSG cấp huyện/tỉnh toàn quốc · Có đáp án &amp; file nghe · 2009–2025</p>
+  <div class="stats">
+    <div class="stat"><span class="stat-num" id="tc">0</span><span class="stat-label">Đề thi</span></div>
+    <div class="stat"><span class="stat-num">5+</span><span class="stat-label">Nguồn</span></div>
+    <div class="stat"><span class="stat-num">30+</span><span class="stat-label">Tỉnh/TP</span></div>
+    <div class="stat"><span class="stat-num">16</span><span class="stat-label">Năm học</span></div>
+  </div>
+  <!-- Cosmos trigger in header ONLY — no floating button -->
+  <button class="btn-cosmos" onclick="openCosmos()">
+    <span class="btn-cosmos-icon">🌌</span> Khám phá Vũ Trụ Đề Thi
+  </button>
+</header>
+
+<div class="controls">
+  <div class="search-wrap">
+    <span class="search-ic">🔍</span>
+    <input id="si" type="text" placeholder="Tìm theo tên huyện, tỉnh... (vd: Thanh Hóa, Bắc Ninh, Hà Nội...)"/>
+  </div>
+  <div class="filters">
+    <button class="fb active" data-f="all">🗂 Tất cả</button>
+    <button class="fb pc" data-f="2024-2025">🆕 2024-2025</button>
+    <button class="fb" data-f="2023-2024">2023-2024</button>
+    <button class="fb" data-f="2022-2023">2022-2023</button>
+    <button class="fb oc" data-f="2020-2022">2020-2022</button>
+    <button class="fb gc" data-f="2016-2020">2016-2020</button>
+    <button class="fb" data-f="truoc2016">Trước 2016</button>
+    <button class="fb gc" data-f="audio">🎧 File nghe</button>
+    <button class="fb gc" data-f="free">✅ Miễn phí</button>
+    <button class="fb" data-f="tailieudieuky">tailieudieuky</button>
+    <button class="fb" data-f="thuvienhoclieu">thuvienhoclieu</button>
+    <button class="fb" data-f="vndoc">vndoc</button>
+    <button class="fb" data-f="dethihsg247">dethihsg247</button>
+  </div>
+  <div class="diff-bar">
+    <span class="diff-bar-lbl">⚡ Độ khó</span>
+    <button class="dfb active-all" onclick="setDiff(this,'all')">🎯 Tất cả</button>
+    <button class="dfb" onclick="setDiff(this,'de')">🟦 Dễ</button>
+    <button class="dfb" onclick="setDiff(this,'de-vua')">🟩 Dễ vừa</button>
+    <button class="dfb" onclick="setDiff(this,'tb')">🟨 Trung bình</button>
+    <button class="dfb" onclick="setDiff(this,'kho')">🟧 Khó</button>
+    <button class="dfb" onclick="setDiff(this,'rat-kho')">🟥 Rất khó</button>
+  </div>
+</div>
+
+<main>
+  <div class="list-meta"><span class="stitle">Danh sách đề thi</span><p id="rc"></p></div>
+  <div class="grid" id="grid"></div>
+  <div class="nr" id="nr"><span>🔍</span><p>Không tìm thấy đề thi phù hợp.<br>Thử từ khóa khác nhé!</p></div>
+</main>
+<button class="btn-top" id="btnTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+</div>
+
+<!-- MODAL -->
+<div class="overlay" id="overlay" onclick="handleOverlayClick(event)">
+  <div class="modal" id="modal">
+    <div class="modal-glow" id="mglow"></div>
+    <div class="modal-header">
+      <div class="modal-toprow">
+        <div class="modal-badges"><span class="modal-yr-badge" id="myr"></span><span class="modal-src-badge" id="msrc"></span></div>
+        <button class="modal-close" onclick="closeModal()">✕</button>
+      </div>
+      <div class="modal-title" id="mtitle"></div>
+      <div class="modal-loc" id="mloc"></div>
+    </div>
+    <hr class="modal-sep">
+    <div class="modal-body">
+      <div class="diff-sec">
+        <div class="diff-lbl">Độ khó ước tính</div>
+        <div class="diff-bw"><div class="diff-bg"><div class="diff-fill" id="dbar"></div></div><span class="diff-score" id="dscore"></span></div>
+        <div class="diff-text" id="dtext"></div>
+        <div class="diff-stars" id="dstars"></div>
+      </div>
+      <div class="info-grid">
+        <div class="info-box"><div class="info-box-lbl">Năm học</div><div class="info-box-val" id="myear"></div></div>
+        <div class="info-box"><div class="info-box-lbl">Cấp thi</div><div class="info-box-val" id="mlevel"></div></div>
+      </div>
+      <div class="modal-desc" id="mdesc"></div>
+      <div class="tags" id="mtags"></div>
+      <div class="modal-actions">
+        <a class="btn-primary" id="mbtn" href="#" target="_blank" rel="noopener">🔗 Xem đề thi</a>
+        <button class="btn-sec" onclick="closeModal()">← Quay lại</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     COSMOS PORTAL
+     Random button lives ONLY inside here
+══════════════════════════════════════ -->
+<div class="cosmos-ov" id="cosmosOv" onclick="handleCosmosClick(event)">
+  <canvas id="cCanvas"></canvas>
+  <div class="cosmos-portal" id="cosmosPortal">
+    <div class="cosmos-title">✦ Vũ Trụ Đề Thi ✦</div>
+    <p class="cosmos-sub">Chọn độ khó · Du hành xuyên không gian</p>
+    <div class="cosmos-diffs">
+      <div class="cdopt sel" data-cd="all">🌌 Tất cả</div>
+      <div class="cdopt" data-cd="de">💠 Dễ</div>
+      <div class="cdopt" data-cd="de-vua">💚 Dễ vừa</div>
+      <div class="cdopt" data-cd="tb">💛 Trung bình</div>
+      <div class="cdopt" data-cd="kho">🧡 Khó</div>
+      <div class="cdopt" data-cd="rat-kho">❤️ Rất khó</div>
+    </div>
+    <div class="portal-ring">
+      <canvas id="pCanvas" width="220" height="220"></canvas>
+      <div class="portal-ctr" onclick="launchWarp()">🌀</div>
+    </div>
+    <!-- RANDOM BUTTON — exclusively inside Cosmos -->
+    <button class="cosmos-launch" onclick="launchWarp()">🚀 Du hành · Lấy đề ngẫu nhiên</button>
+    <span class="cosmos-cancel" onclick="closeCosmos()">[ ESC — Quay về Trái Đất ]</span>
+  </div>
+</div>
+<div class="warp-ov" id="warpOv"></div>
+
+<script>
+/* ═══════════════════════════════
+   AUTH
+═══════════════════════════════ */
+const AKEY='hsg8_accs';
+function getAccs(){try{return JSON.parse(localStorage.getItem(AKEY)||'{}');}catch{return {};}}
+function saveAccs(a){localStorage.setItem(AKEY,JSON.stringify(a));}
+
+function switchTab(t){
+  document.querySelectorAll('.auth-tab').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.auth-panel').forEach(x=>x.classList.remove('active'));
+  document.getElementById('tab'+t[0].toUpperCase()+t.slice(1)).classList.add('active');
+  document.getElementById('panel'+t[0].toUpperCase()+t.slice(1)).classList.add('active');
+}
+function showErr(id,msg){const e=document.getElementById(id);e.textContent=msg;e.classList.add('show');}
+function hideMsg(id){document.getElementById(id).classList.remove('show');}
+
+function doLogin(){
+  hideMsg('loginErr');
+  const u=document.getElementById('loginUser').value.trim();
+  const p=document.getElementById('loginPass').value;
+  if(!u||!p){showErr('loginErr','Vui lòng nhập đầy đủ thông tin!');return;}
+  const accs=getAccs();
+  if(!accs[u]){showErr('loginErr','Tên tài khoản không tồn tại!');return;}
+  if(accs[u]!==btoa(p)){showErr('loginErr','Mật khẩu không đúng!');return;}
+  enterApp(u);
+}
+function doSignup(){
+  hideMsg('signupErr');hideMsg('signupOk');
+  const u=document.getElementById('signupUser').value.trim();
+  const p=document.getElementById('signupPass').value;
+  const p2=document.getElementById('signupPass2').value;
+  if(!u||!p||!p2){showErr('signupErr','Vui lòng nhập đầy đủ!');return;}
+  if(u.length<3){showErr('signupErr','Tên tài khoản phải ≥ 3 ký tự!');return;}
+  if(p.length<6){showErr('signupErr','Mật khẩu phải ≥ 6 ký tự!');return;}
+  if(p!==p2){showErr('signupErr','Mật khẩu xác nhận không khớp!');return;}
+  const accs=getAccs();
+  if(accs[u]){showErr('signupErr','Tên tài khoản đã tồn tại!');return;}
+  accs[u]=btoa(p);saveAccs(accs);
+  const ok=document.getElementById('signupOk');ok.textContent='✅ Tạo tài khoản thành công! Đang đăng nhập...';ok.classList.add('show');
+  setTimeout(()=>enterApp(u),800);
+}
+function enterAsGuest(){enterApp('Khách');}
+
+function enterApp(name){
+  const pg=document.getElementById('loginPage');
+  pg.classList.add('fade-out');
+  setTimeout(()=>{
+    pg.style.display='none';
+    const app=document.getElementById('appWrap');app.style.display='block';
+    const b=document.getElementById('userBadge');b.classList.add('show');
+    document.getElementById('userAv').textContent=name[0].toUpperCase();
+    document.getElementById('userNameSpan').textContent=name;
+    render(D);setTimeout(()=>revealCards(),100);
+    startParticles();
+  },500);
+}
+function logout(){
+  document.getElementById('appWrap').style.display='none';
+  document.getElementById('userBadge').classList.remove('show');
+  const pg=document.getElementById('loginPage');pg.style.display='flex';pg.classList.remove('fade-out');
+}
+
+document.getElementById('loginPass').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
+document.getElementById('loginUser').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
+document.getElementById('signupPass2').addEventListener('keydown',e=>{if(e.key==='Enter')doSignup();});
+
+/* ═══════════════════════════════
+   DATA
+═══════════════════════════════ */
+const D=[{t:"Huyện Nam Trực",p:"Nam Định",y:"2024-2025",d:"4 phần đủ · đáp án · file nghe MP3",tg:["free","audio","word"],ic:"📝",icl:"ig",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/de-thi-hsg-anh-8-nam-truc-2024-2025-kem-dap-an/"},
+{t:"Huyện Xuân Trường",p:"Nam Định",y:"2024-2025",d:"9 trang · Word + PDF + MP3",tg:["free","audio","word"],ic:"📄",icl:"ib",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/de-hsg-tieng-anh-8-2024-2025-moi-nhat/"},
+{t:"TP Thanh Hóa",p:"Thanh Hóa",y:"2024-2025",d:"5 phần · thi 09/01/2025 · file nghe đầy đủ",tg:["free","audio","word"],ic:"🏆",icl:"io",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/de-thi-hsg-tieng-anh-8-tp-thanh-hoa-2025/"},
+{t:"Huyện Nga Sơn",p:"Thanh Hóa",y:"2024-2025",d:"Đề giao lưu · 8 trang · Word + PDF + MP3",tg:["free","audio","word"],ic:"🎧",icl:"ib",src:"thuvienhoclieu",url:"https://thuvienhoclieu.com/de-giao-luu-hsg-anh-8-huyen-nga-son-2024-2025-co-dap-an-va-file-nghe/"},
+{t:"Huyện Yên Thành",p:"Nghệ An",y:"2024-2025",d:"Phòng GD&ĐT chính thức · đáp án chi tiết",tg:["free","word"],ic:"📄",icl:"ig",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/de-thi-hoc-sinh-gioi-tieng-anh-8-huyen-yen-thanh-2024/"},
+{t:"Thị xã Việt Yên",p:"Bắc Giang",y:"2024-2025",d:"Đề thi HSG cấp thị xã · Word + audio · Google Drive",tg:["audio","word"],ic:"📝",icl:"ip",src:"drive",url:"https://drive.google.com/drive/folders/1EMwwkvTU6MH988ej2LYLiRggOABSNh--"},
+{t:"TP Bắc Ninh",p:"Bắc Ninh",y:"2023-2024",d:"10 trang · Word + PDF + MP3 đầy đủ",tg:["free","audio","word"],ic:"🎧",icl:"ib",src:"thuvienhoclieu",url:"https://thuvienhoclieu.com/de-thi-hsg-anh-8-tp-bac-ninh-2023-2024-co-dap-an-va-file-nghe/"},
+{t:"Huyện Lý Nhân",p:"Hà Nam",y:"2023-2024",d:"7 trang · 110 câu · 120 phút · file nghe",tg:["free","audio","word"],ic:"📝",icl:"io",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/de-thi-hsg-tieng-anh-8-cap-huyen-ly-nhan-nam-2024-co-dap-an-va-file-nghe/"},
+{t:"Cấp tỉnh Nam Định",p:"Nam Định",y:"2023-2024",d:"Đề HSG cấp tỉnh · format mới nhất · đáp án",tg:["free","word"],ic:"🥇",icl:"ib",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/tag/de-thi-hsg-tieng-anh-8-moi-nhat-co-dap-an-va-file-nghe-word-pdf/"},
+{t:"Đề chuẩn cấp huyện #1",p:"Nhiều tỉnh",y:"2023-2024",d:"Đề chuẩn có file nghe · Word + PDF — VnDoc",tg:["audio","word"],ic:"📋",icl:"ib",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-8-cap-huyen-co-file-nghe-so-1-340466"},
+{t:"Đề chuẩn cấp huyện #2",p:"Nhiều tỉnh",y:"2023-2024",d:"Đề chuẩn từ VnDoc · có đáp án · Word",tg:["word"],ic:"📋",icl:"ig",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-8-cap-huyen-co-file-nghe-so-2-340468"},
+{t:"10 đề thi HSG tổng hợp 2024",p:"Nhiều tỉnh",y:"2023-2024",d:"Tuyển tập 10 đề · trắc nghiệm nâng cao · có đáp án",tg:["word"],ic:"📚",icl:"ip",src:"vndoc",url:"https://vndoc.com/30-de-thi-hoc-sinh-gioi-tieng-anh-lop-8-131250"},
+{t:"Huyện Gia Viễn",p:"Ninh Bình",y:"2022-2023",d:"11 trang · Word + PDF + MP3",tg:["free","audio","word"],ic:"🎧",icl:"ig",src:"thuvienhoclieu",url:"https://thuvienhoclieu.com/de-thi-chon-hsg-tieng-anh-8-huyen-gia-vien-2022-2023-co-dap-an-va-file-nghe/"},
+{t:"Huyện Lâm Thao",p:"Phú Thọ",y:"2022-2023",d:"Đề chọn HSG · Word + PDF + MP3",tg:["free","audio","word"],ic:"🎧",icl:"ip",src:"thuvienhoclieu",url:"https://thuvienhoclieu.com/de-chon-hsg-tieng-anh-8-huyen-lam-thao-2022-2023-co-dap-an-va-file-nghe/"},
+{t:"Huyện Thuận Thành — THCS Nghĩa Đạo",p:"Bắc Ninh",y:"2022-2023",d:"Đề chọn HSG cấp trường · 7 trang · Word + PDF",tg:["free","word"],ic:"🏫",icl:"ib",src:"thuvienhoclieu",url:"https://thuvienhoclieu.com/de-chon-hsg-tieng-anh-8-cap-truong-thcs-nghia-dao-co-dap-an/"},
+{t:"Phòng GD&ĐT Quảng Ninh",p:"Quảng Ninh",y:"2022-2023",d:"Đề chính thức · có file nghe",tg:["audio","word"],ic:"🎧",icl:"ib",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"TP Sầm Sơn",p:"Thanh Hóa",y:"2022-2023",d:"Đề thi HSG cấp TP · Word + PDF",tg:["free","word"],ic:"🏖️",icl:"io",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Olympic huyện Thường Tín",p:"Hà Nội",y:"2022-2023",d:"Đề Olympic 30/4 · đủ 4 phần + transcript + file nghe",tg:["audio","word"],ic:"🏅",icl:"ip",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Đề kiểm tra chất lượng HSG",p:"Nhiều tỉnh",y:"2022-2023",d:"10 trang · Word + PDF + file nghe MP3",tg:["free","audio","word"],ic:"📋",icl:"ig",src:"thuvienhoclieu",url:"https://thuvienhoclieu.com/de-kiem-tra-chat-luong-hsg-tieng-anh-8-cap-huyen-dap-an-va-file-nghe/"},
+{t:"Đề chọn HSG cấp huyện (mẫu A)",p:"Nhiều tỉnh",y:"2022-2023",d:"7 trang chuẩn · file nghe · Word + PDF",tg:["free","audio","word"],ic:"📋",icl:"iy",src:"thuvienhoclieu",url:"https://thuvienhoclieu.com/de-chon-hsg-tieng-anh-8-cap-huyen-dap-an-va-file-nghe/"},
+{t:"Huyện Kỳ Anh (Đề 1)",p:"Hà Tĩnh",y:"2021-2022",d:"Đề HSG cấp huyện · có đáp án · Word",tg:["word"],ic:"📝",icl:"io",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Huyện Kỳ Anh (Đề 2)",p:"Hà Tĩnh",y:"2021-2022",d:"Phiên bản 2 · có đáp án · Word",tg:["word"],ic:"📝",icl:"io",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Huyện Kỳ Anh (Đề 3)",p:"Hà Tĩnh",y:"2021-2022",d:"Phiên bản 3 · có đáp án · Word",tg:["word"],ic:"📝",icl:"io",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Huyện Hòa Bình (2020-2021)",p:"Bạc Liêu",y:"2020-2021",d:"Đề HSG miền Nam · có file nghe · Word",tg:["audio","word"],ic:"🎧",icl:"ig",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Đề chuẩn cấp huyện 2020-2021",p:"Nhiều tỉnh",y:"2020-2021",d:"7 trang · Word + PDF · đáp án đầy đủ",tg:["free","word"],ic:"📄",icl:"ib",src:"thuvienhoclieu",url:"https://thuvienhoclieu.com/de-thi-hoc-sinh-gioi-tieng-anh-8-cap-huyen-2019-2020-co-dap-an/"},
+{t:"Đề chuẩn cấp huyện (mẫu B)",p:"Nhiều tỉnh",y:"2020-2021",d:"10 trang · Word + PDF + file nghe",tg:["free","audio","word"],ic:"📋",icl:"io",src:"thuvienhoclieu",url:"https://thuvienhoclieu.com/de-kiem-tra-chat-luong-hsg-tieng-anh-8-cap-huyen-dap-an-va-file-nghe/"},
+{t:"Huyện Thanh Oai (2018-2019)",p:"Hà Nội",y:"2018-2019",d:"Đề chọn HSG · Word + PDF + MP3",tg:["free","audio","word"],ic:"🎧",icl:"ib",src:"thuvienhoclieu",url:"https://thuvienhoclieu.com/de-thi-chon-hsg-tieng-anh-8-huyen-thanh-oai-2018-2019-co-dap-an-va-file-nghe/"},
+{t:"THCS Hai Bà Trưng (2018-2019)",p:"Hà Nội",y:"2018-2019",d:"Đề chọn HSG cấp trường · Word + PDF",tg:["free","word"],ic:"🏫",icl:"ip",src:"thuvienhoclieu",url:"https://thuvienhoclieu.com/de-thi-chon-hoc-sinh-gioi-tieng-anh-8-truong-thcs-hai-ba-trung-2018-2019-co-dap-an/"},
+{t:"Đề thi thử HSG cấp TP",p:"Nhiều TP",y:"2018-2019",d:"8 trang · Word + PDF · đề chuẩn",tg:["free","word"],ic:"🏙️",icl:"ip",src:"thuvienhoclieu",url:"https://thuvienhoclieu.com/de-thi-thu-hoc-sinh-gioi-tieng-anh-8-cap-thanh-pho-co-dap-an/"},
+{t:"Đề HSG cấp huyện 2019-2020",p:"Nhiều tỉnh",y:"2019-2020",d:"9 trang · Word + PDF · đáp án đầy đủ",tg:["free","word"],ic:"📄",icl:"ig",src:"thuvienhoclieu",url:"https://thuvienhoclieu.com/de-thi-hoc-sinh-gioi-tieng-anh-8-cap-huyen-2019-2020-co-dap-an/"},
+{t:"Huyện Hòa Bình (2017-2018)",p:"Bạc Liêu",y:"2017-2018",d:"Đề HSG miền Nam · định dạng Word",tg:["word"],ic:"📄",icl:"ig",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Huyện Que Võ (2017-2018)",p:"Bắc Ninh",y:"2017-2018",d:"Đề chọn HSG cấp huyện · có đáp án · Word",tg:["word"],ic:"📝",icl:"ib",src:"dethihsg247",url:"https://dethihsg247.com/tu-khoa/de-thi-hsg-tieng-anh-8"},
+{t:"Huyện Trực Ninh (2017-2018)",p:"Nam Định",y:"2017-2018",d:"Đề chọn HSG cấp huyện · có đáp án · Word",tg:["word"],ic:"📝",icl:"ig",src:"dethihsg247",url:"https://dethihsg247.com/tu-khoa/de-thi-hsg-tieng-anh-8"},
+{t:"Huyện Quảng Điền (2017-2018)",p:"Thừa Thiên Huế",y:"2017-2018",d:"Đề thi HSG · có đáp án · Word",tg:["free","word"],ic:"📄",icl:"io",src:"dethihsg247",url:"https://dethihsg247.com/tu-khoa/de-thi-hsg-tieng-anh-8"},
+{t:"Huyện Bình Xuyên (2017-2018)",p:"Vĩnh Phúc",y:"2017-2018",d:"Đề HSG Phòng GD&ĐT · có đáp án · Word",tg:["word"],ic:"📄",icl:"ip",src:"cqaugusta",url:"https://cqaugusta.com/de-thi-hoc-sinh-gioi-tieng-anh-8-co-file-nghe/"},
+{t:"Huyện Tam Dương (2017-2018)",p:"Vĩnh Phúc",y:"2017-2018",d:"Đề HSG Phòng GD&ĐT Tam Dương · Word",tg:["word"],ic:"📄",icl:"ip",src:"cqaugusta",url:"https://cqaugusta.com/de-thi-hoc-sinh-gioi-tieng-anh-8-co-file-nghe/"},
+{t:"Huyện Thanh Oai (2016-2017)",p:"Hà Nội",y:"2016-2017",d:"Đề chọn HSG · Word + PDF + MP3",tg:["free","audio","word"],ic:"🎧",icl:"ib",src:"thuvienhoclieu",url:"https://thuvienhoclieu.com/de-thi-chon-hoc-sinh-gioi-tieng-anh-8-huyen-thanh-oai-2016-2017-co-dap-an-va-file-nghe/"},
+{t:"Huyện Yên Lạc (2016-2017)",p:"Vĩnh Phúc",y:"2016-2017",d:"Đề giao lưu HSG · Word + PDF + MP3",tg:["free","audio","word"],ic:"🎧",icl:"ip",src:"thuvienhoclieu",url:"https://thuvienhoclieu.com/de-thi-giao-luu-hsg-tieng-anh-8-huyen-yen-lac-2016-2017-co-dap-an-va-file-nghe/"},
+{t:"Huyện Bình Xuyên (2016-2017)",p:"Vĩnh Phúc",y:"2016-2017",d:"75 câu · Phòng GD&ĐT Bình Xuyên · có đáp án",tg:["word"],ic:"📄",icl:"ip",src:"cqaugusta",url:"https://cqaugusta.com/de-thi-hoc-sinh-gioi-tieng-anh-8-co-file-nghe/"},
+{t:"Huyện Kim Bảng (2016-2017)",p:"Hà Nam",y:"2016-2017",d:"Đề HSG cấp huyện · có file nghe",tg:["audio","word"],ic:"🎧",icl:"iy",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Đô Lương — THCS Kim Đồng",p:"Nghệ An",y:"2016-2017",d:"Đề thi trường Kim Đồng · có file nghe",tg:["audio","word"],ic:"🎧",icl:"io",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Huyện Nam Trực (2015-2016)",p:"Nam Định",y:"2015-2016",d:"64 câu trắc nghiệm · đáp án · Word",tg:["free","word"],ic:"📄",icl:"ig",src:"cqaugusta",url:"https://cqaugusta.com/de-thi-hoc-sinh-gioi-tieng-anh-8-co-file-nghe/"},
+{t:"Huyện Ý Yên (2015-2016)",p:"Nam Định",y:"2015-2016",d:"Đề chọn HSG cấp huyện · có đáp án chi tiết",tg:["free","word"],ic:"📄",icl:"ig",src:"vndoc",url:"https://vndoc.com/de-thi-chon-hoc-sinh-gioi-cap-huyen-mon-tieng-anh-lop-8-phong-gd-dt-y-yen-nam-dinh-nam-hoc-2015-2016-111775"},
+{t:"Huyện Tiền Hải (2015-2016)",p:"Thái Bình",y:"2015-2016",d:"Đề khảo sát HSG · có đáp án · Word",tg:["free","word"],ic:"📄",icl:"iy",src:"vndoc",url:"https://vndoc.com/de-thi-chon-hoc-sinh-gioi-cap-huyen-mon-tieng-anh-lop-8-phong-gd-dt-y-yen-nam-dinh-nam-hoc-2015-2016-111775"},
+{t:"THCS Tam Đảo (2015-2016)",p:"Vĩnh Phúc",y:"2015-2016",d:"Đề chọn HSG cấp trường · Word",tg:["word"],ic:"🏫",icl:"ip",src:"thuvienhoclieu",url:"https://thuvienhoclieu.com/de-thi-chon-hsg-tieng-anh-8-cap-truong-thcs-nghia-dao-co-dap-an/"},
+{t:"Huyện Cẩm Xuyên (2015-2016)",p:"Hà Tĩnh",y:"2015-2016",d:"Đề HSG cấp huyện · có đáp án · Word",tg:["word"],ic:"📄",icl:"io",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Huyện Hoằng Hóa (2014-2015)",p:"Thanh Hóa",y:"2014-2015",d:"90 câu trắc nghiệm · Phòng GD&ĐT Hoằng Hóa",tg:["word"],ic:"📄",icl:"io",src:"cqaugusta",url:"https://cqaugusta.com/de-thi-hoc-sinh-gioi-tieng-anh-8-co-file-nghe/"},
+{t:"Huyện Yên Mô (2014-2015)",p:"Ninh Bình",y:"2014-2015",d:"Đề HSG cấp huyện · Word",tg:["word"],ic:"📄",icl:"ig",src:"vndoc",url:"https://vndoc.com/de-thi-chon-hoc-sinh-gioi-cap-huyen-mon-tieng-anh-lop-8-phong-gd-dt-y-yen-nam-dinh-nam-hoc-2015-2016-111775"},
+{t:"Huyện Nho Quan (2014-2015)",p:"Ninh Bình",y:"2014-2015",d:"Đề chọn HSG cấp huyện · Word .doc",tg:["word"],ic:"📄",icl:"ig",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Huyện Hậu Lộc (2013-2014)",p:"Thanh Hóa",y:"2013-2014",d:"Đề HSG cấp huyện · có đáp án · Word",tg:["word"],ic:"📄",icl:"io",src:"cqaugusta",url:"https://cqaugusta.com/de-thi-hoc-sinh-gioi-tieng-anh-8-co-file-nghe/"},
+{t:"Huyện Thủy Nguyên (2013-2014)",p:"Hải Phòng",y:"2013-2014",d:"Đề thi THPT Lập Lê · có đáp án · Word",tg:["word"],ic:"📄",icl:"iy",src:"cqaugusta",url:"https://cqaugusta.com/de-thi-hoc-sinh-gioi-tieng-anh-8-co-file-nghe/"},
+{t:"Huyện Nho Quan (2013-2014)",p:"Ninh Bình",y:"2013-2014",d:"Đề chọn HSG cấp huyện · Word .doc",tg:["word"],ic:"📄",icl:"ig",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Thị xã Sa Pa (2012-2013)",p:"Lào Cai",y:"2012-2013",d:"Đề HSG vùng núi phía Bắc · Word",tg:["word"],ic:"🏔️",icl:"ip",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Huyện Nghĩa Đàn (2012-2013)",p:"Nghệ An",y:"2012-2013",d:"Đề HSG cấp huyện · Word",tg:["word"],ic:"📄",icl:"io",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Huyện Thanh Oai (2012-2013)",p:"Hà Nội",y:"2012-2013",d:"Đề chọn HSG cũ · định dạng Word",tg:["word"],ic:"📄",icl:"ib",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Huyện Lập Thạch (2012-2013)",p:"Vĩnh Phúc",y:"2012-2013",d:"Đề chọn đội tuyển HSG · Word",tg:["word"],ic:"📄",icl:"ip",src:"dethihsg247",url:"https://dethihsg247.com/tu-khoa/de-thi-hsg-tieng-anh-8"},
+{t:"Huyện Tiên Lãng (2009-2010)",p:"Hải Phòng",y:"2009-2010",d:"Đề thi cũ lưu trữ · định dạng Word",tg:["word"],ic:"📄",icl:"iy",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Huyện Tiên Lãng (2010-2011)",p:"Hải Phòng",y:"2010-2011",d:"Đề thi cũ lưu trữ · định dạng Word",tg:["word"],ic:"📄",icl:"iy",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Huyện Tiên Lãng (2011-2012)",p:"Hải Phòng",y:"2011-2012",d:"Đề thi cũ lưu trữ · định dạng Word",tg:["word"],ic:"📄",icl:"iy",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"📦 Bộ 88 đề (2009–2024)",p:"HN · HP · Nghệ An · Nam Định · Ninh Bình · Phú Thọ · Bắc Giang · Quảng Ninh...",y:"2009-2024",d:"Trọn bộ 88 đề từ nhiều Phòng GD&ĐT · đủ Word+PDF+MP3",tg:["audio","word"],ic:"📚",icl:"ip",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"📦 Tổng hợp HSG Anh 8 (thuvienhoclieu)",p:"Nhiều tỉnh thành toàn quốc",y:"2016-2025",d:"Trang tổng hợp tất cả đề HSG Anh 8 + file nghe",tg:["audio","word"],ic:"📚",icl:"ib",src:"thuvienhoclieu",url:"https://thuvienhoclieu.com/series/tong-hop-cac-de-thi-hoc-sinh-gioi-tieng-anh-8-co-dap-an-va-file-nghe/"},
+{t:"📦 Kho đề HSG Anh 8 (tailieudieuky)",p:"Nhiều tỉnh thành",y:"2016-2025",d:"Tag tổng hợp đề mới nhất · Word + PDF + MP3",tg:["audio","word"],ic:"📚",icl:"io",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/tag/de-thi-hsg-tieng-anh-8-moi-nhat-co-dap-an-va-file-nghe-word-pdf/"},
+{t:"📦 250 đề HSG Anh 8 (dethihsg247)",p:"Toàn quốc · 2017-2024",y:"2017-2024",d:"Kho 250 đề · cập nhật liên tục · miễn phí",tg:["free","audio","word"],ic:"📚",icl:"ig",src:"dethihsg247",url:"https://dethihsg247.com/tu-khoa/de-thi-hsg-tieng-anh-8"},
+{t:"📦 64 đề HSG Anh 8 chọn lọc",p:"Nhiều tỉnh",y:"2017-2024",d:"Trọn bộ 64 đề · đáp án + file nghe · cqaugusta",tg:["free","audio","word"],ic:"📚",icl:"iy",src:"cqaugusta",url:"https://cqaugusta.com/de-thi-hoc-sinh-gioi-tieng-anh-8-co-file-nghe/"},
+{t:"📦 30 đề HSG Anh 8 (VnDoc)",p:"Nhiều tỉnh",y:"2018-2024",d:"30 đề tổng hợp · trắc nghiệm nâng cao · VnDoc",tg:["word"],ic:"📚",icl:"ib",src:"vndoc",url:"https://vndoc.com/30-de-thi-hoc-sinh-gioi-tieng-anh-lop-8-131250"},
+{t:"Cấp tỉnh Nam Định",p:"Nam Định",y:"2024-2025",d:"Đề HSG cấp tỉnh 2025 · đáp án chi tiết · 10 trang",tg:["free","word","tinh"],ic:"🥇",icl:"ig",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/de-thi-hsg-anh-8-nam-truc-2024-2025-kem-dap-an/"},
+{t:"Huyện Hòa Bình – 2017-2018",p:"Bạc Liêu",y:"2017-2018",d:"Đề HSG miền Nam · có trong bộ 88 · Word",tg:["word"],ic:"📄",icl:"ig",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Huyện Hòa Bình – 2020-2021",p:"Bạc Liêu",y:"2020-2021",d:"Đề HSG miền Nam · có file nghe · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"ig",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Cấp tỉnh Bắc Giang – 2015-2016",p:"Bắc Giang",y:"2015-2016",d:"Đề HSG cấp tỉnh · có trong bộ 88 · Word",tg:["word","tinh"],ic:"🥇",icl:"ip",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Huyện Việt Yên – 2022-2023",p:"Bắc Giang",y:"2022-2023",d:"Đề HSG cấp huyện · có trong bộ 88 · Word",tg:["word"],ic:"📄",icl:"ip",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"TP Bắc Giang – 2015-2016",p:"Bắc Giang",y:"2015-2016",d:"Đề HSG cấp TP · có file nghe · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"ip",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"THCS Nghĩa Đạo (Thuận Thành) – 2022-2023",p:"Bắc Ninh",y:"2022-2023",d:"Đề cấp trường · 7 trang · có trong bộ 88 · Word+PDF",tg:["word"],ic:"🏫",icl:"ib",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Cấp quận/huyện Đà Nẵng – 2022-2023",p:"Đà Nẵng",y:"2022-2023",d:"Đề HSG miền Trung · có file nghe · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"ib",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Cấp quận/huyện Đà Nẵng – 2021-2022",p:"Đà Nẵng",y:"2021-2022",d:"Đề HSG · có file nghe · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"ib",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Cấp quận/huyện Đà Nẵng – 2020-2021",p:"Đà Nẵng",y:"2020-2021",d:"Đề HSG · file nghe · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"ib",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Cấp quận/huyện Đà Nẵng – 2019-2020",p:"Đà Nẵng",y:"2019-2020",d:"Đề HSG · file nghe · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"ib",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Cấp quận/huyện Đà Nẵng – 2018-2019",p:"Đà Nẵng",y:"2018-2019",d:"Đề HSG · file nghe · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"ib",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Cấp quận/huyện Đà Nẵng – 2017-2018",p:"Đà Nẵng",y:"2017-2018",d:"Đề HSG · file nghe · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"ib",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Cấp quận/huyện Đà Nẵng – 2016-2017",p:"Đà Nẵng",y:"2016-2017",d:"Đề HSG · file nghe · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"ib",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Cấp quận/huyện Đà Nẵng – 2015-2016",p:"Đà Nẵng",y:"2015-2016",d:"Đề HSG · file nghe · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"ib",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Cấp quận/huyện Đà Nẵng – 2014-2015",p:"Đà Nẵng",y:"2014-2015",d:"Đề HSG · file nghe · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"ib",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Cấp quận/huyện Đà Nẵng – 2013-2014",p:"Đà Nẵng",y:"2013-2014",d:"Đề HSG · file nghe · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"ib",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Huyện Kim Bảng – 2016-2017",p:"Hà Nam",y:"2016-2017",d:"Đề HSG cấp huyện · có file nghe · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"iy",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Huyện Thanh Oai – 2012-2013",p:"Hà Nội",y:"2012-2013",d:"Đề chọn HSG lưu trữ · có trong bộ 88 · Word",tg:["word"],ic:"📄",icl:"ib",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Huyện Thanh Oai – 2016-2017",p:"Hà Nội",y:"2016-2017",d:"Đề chọn HSG · có file nghe · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"ib",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Huyện Thanh Oai – 2018-2019",p:"Hà Nội",y:"2018-2019",d:"Đề chọn HSG · có file nghe · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"ib",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Huyện Cẩm Xuyên – 2015-2016",p:"Hà Tĩnh",y:"2015-2016",d:"Đề HSG cấp huyện · có trong bộ 88 · Word",tg:["word"],ic:"📄",icl:"io",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Huyện Kỳ Anh – 2021-2022 (Đề 1)",p:"Hà Tĩnh",y:"2021-2022",d:"Đề chính thức · đáp án chi tiết · có trong bộ 88",tg:["word"],ic:"📝",icl:"io",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Huyện Kỳ Anh – 2021-2022 (Đề 2)",p:"Hà Tĩnh",y:"2021-2022",d:"Phiên bản 2 · đáp án · có trong bộ 88",tg:["word"],ic:"📝",icl:"io",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Huyện Kỳ Anh – 2021-2022 (Đề 3)",p:"Hà Tĩnh",y:"2021-2022",d:"Phiên bản 3 · đáp án · có trong bộ 88",tg:["word"],ic:"📝",icl:"io",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Huyện Tiên Lãng – 2009-2010",p:"Hải Phòng",y:"2009-2010",d:"Đề lưu trữ 2009 · có trong bộ 88 · Word",tg:["word"],ic:"📄",icl:"iy",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Huyện Tiên Lãng – 2010-2011",p:"Hải Phòng",y:"2010-2011",d:"Đề lưu trữ 2010 · có trong bộ 88 · Word",tg:["word"],ic:"📄",icl:"iy",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Huyện Tiên Lãng – 2011-2012",p:"Hải Phòng",y:"2011-2012",d:"Đề lưu trữ 2011 · có trong bộ 88 · Word",tg:["word"],ic:"📄",icl:"iy",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Thị xã Sa Pa – 2012-2013",p:"Lào Cai",y:"2012-2013",d:"Đề HSG vùng núi phía Bắc · có trong bộ 88 · Word",tg:["word"],ic:"🏔️",icl:"ip",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Huyện Nghĩa Đàn – 2012-2013",p:"Nghệ An",y:"2012-2013",d:"Đề HSG cấp huyện · có trong bộ 88 · Word",tg:["word"],ic:"📄",icl:"ig",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"THCS Kim Đồng (Đô Lương) – 2016-2017",p:"Nghệ An",y:"2016-2017",d:"Đề cấp trường · có file nghe · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"ig",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Huyện Gia Viễn – 2022-2023",p:"Ninh Bình",y:"2022-2023",d:"11 trang · Word+PDF+MP3 · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"ip",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Huyện Nho Quan – 2013-2014",p:"Ninh Bình",y:"2013-2014",d:"Đề HSG cấp huyện · Word .doc · có trong bộ 88",tg:["word"],ic:"📄",icl:"ip",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Huyện Nho Quan – 2014-2015",p:"Ninh Bình",y:"2014-2015",d:"Đề HSG cấp huyện · Word .doc · có trong bộ 88",tg:["word"],ic:"📄",icl:"ip",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Phòng GD&ĐT Quảng Ninh – 2022-2023",p:"Quảng Ninh",y:"2022-2023",d:"Đề chính thức · có file nghe · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"ib",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"TP Hồ Chí Minh – 2023-2024 (Đề 1)",p:"TP Hồ Chí Minh",y:"2023-2024",d:"Đề HSG cấp quận · file nghe · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"ipk",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"TP Hồ Chí Minh – 2023-2024 (Đề 2)",p:"TP Hồ Chí Minh",y:"2023-2024",d:"Đề HSG cấp quận · file nghe · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"ipk",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"TP Hồ Chí Minh – 2022-2023 (Đề 1)",p:"TP Hồ Chí Minh",y:"2022-2023",d:"Đề HSG · file nghe · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"ipk",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"TP Hồ Chí Minh – 2022-2023 (Đề 2)",p:"TP Hồ Chí Minh",y:"2022-2023",d:"Đề HSG · file nghe · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"ipk",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"TP Hồ Chí Minh – 2021-2022",p:"TP Hồ Chí Minh",y:"2021-2022",d:"Đề HSG · file nghe · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"ipk",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"TP Hồ Chí Minh – 2020-2021",p:"TP Hồ Chí Minh",y:"2020-2021",d:"Đề HSG · file nghe · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"ipk",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"TP Hồ Chí Minh – 2019-2020",p:"TP Hồ Chí Minh",y:"2019-2020",d:"Đề HSG · file nghe · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"ipk",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"TP Hồ Chí Minh – 2018-2019",p:"TP Hồ Chí Minh",y:"2018-2019",d:"Đề HSG · file nghe · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"ipk",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"TP Hồ Chí Minh – 2017-2018",p:"TP Hồ Chí Minh",y:"2017-2018",d:"Đề HSG · file nghe · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"ipk",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"TP Hồ Chí Minh – 2016-2017",p:"TP Hồ Chí Minh",y:"2016-2017",d:"Đề HSG · file nghe · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"ipk",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"TP Hồ Chí Minh – 2015-2016",p:"TP Hồ Chí Minh",y:"2015-2016",d:"Đề HSG · file nghe · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"ipk",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"TP Hồ Chí Minh – 2014-2015",p:"TP Hồ Chí Minh",y:"2014-2015",d:"Đề HSG · file nghe · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"ipk",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"TP Hồ Chí Minh – 2013-2014",p:"TP Hồ Chí Minh",y:"2013-2014",d:"Đề HSG · file nghe · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"ipk",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Huyện Lâm Thao – 2022-2023",p:"Phú Thọ",y:"2022-2023",d:"11 trang · Word+PDF+MP3 · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"io",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"THCS Nghĩa Đạo – Thuận Thành",p:"Bắc Ninh",y:"2022-2023",d:"Đề cấp trường · 7 trang · Word+PDF · miễn phí",tg:["free","word"],ic:"🏫",icl:"ib",src:"thuvienhoclieu",url:"https://thuvienhoclieu.com/de-chon-hsg-tieng-anh-8-cap-truong-thcs-nghia-dao-co-dap-an/"},
+{t:"Đề kiểm tra chất lượng HSG (mẫu 1)",p:"Nhiều tỉnh",y:"2022-2023",d:"10 trang · Word+PDF+MP3 · miễn phí",tg:["free","audio","word"],ic:"📋",icl:"ig",src:"thuvienhoclieu",url:"https://thuvienhoclieu.com/de-kiem-tra-chat-luong-hsg-tieng-anh-8-cap-huyen-dap-an-va-file-nghe/"},
+{t:"Huyện Thanh Oai",p:"Hà Nội",y:"2018-2019",d:"8 trang · Word+PDF+MP3 · miễn phí",tg:["free","audio","word"],ic:"🎧",icl:"ib",src:"thuvienhoclieu",url:"https://thuvienhoclieu.com/de-thi-chon-hsg-tieng-anh-8-huyen-thanh-oai-2018-2019-co-dap-an-va-file-nghe/"},
+{t:"THCS Hai Bà Trưng",p:"Hà Nội",y:"2018-2019",d:"Đề cấp trường · Word+PDF · miễn phí",tg:["free","word"],ic:"🏫",icl:"ip",src:"thuvienhoclieu",url:"https://thuvienhoclieu.com/de-thi-chon-hoc-sinh-gioi-tieng-anh-8-truong-thcs-hai-ba-trung-2018-2019-co-dap-an/"},
+{t:"Đề thi thử HSG cấp TP (2018-2019)",p:"Nhiều TP",y:"2018-2019",d:"8 trang · Word+PDF · miễn phí",tg:["free","word"],ic:"🏙️",icl:"ip",src:"thuvienhoclieu",url:"https://thuvienhoclieu.com/de-thi-thu-hoc-sinh-gioi-tieng-anh-8-cap-thanh-pho-co-dap-an/"},
+{t:"Huyện Thanh Oai",p:"Hà Nội",y:"2016-2017",d:"Word+PDF+MP3 · miễn phí",tg:["free","audio","word"],ic:"🎧",icl:"ib",src:"thuvienhoclieu",url:"https://thuvienhoclieu.com/de-thi-chon-hoc-sinh-gioi-tieng-anh-8-huyen-thanh-oai-2016-2017-co-dap-an-va-file-nghe/"},
+{t:"Huyện Yên Lạc",p:"Vĩnh Phúc",y:"2016-2017",d:"Đề giao lưu · 12 trang · Word+PDF+MP3 · miễn phí",tg:["free","audio","word"],ic:"🎧",icl:"ip",src:"thuvienhoclieu",url:"https://thuvienhoclieu.com/de-thi-giao-luu-hsg-tieng-anh-8-huyen-yen-lac-2016-2017-co-dap-an-va-file-nghe/"},
+{t:"Đề chuẩn cấp huyện – Số 1",p:"Nhiều tỉnh",y:"2023-2024",d:"Đề chuẩn · file nghe MP3 · Word+PDF · VnDoc",tg:["audio","word"],ic:"📋",icl:"ib",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-8-cap-huyen-co-file-nghe-so-1-340466"},
+{t:"Đề chuẩn cấp huyện – Số 2",p:"Nhiều tỉnh",y:"2023-2024",d:"Đề chuẩn · đáp án · Word+PDF · VnDoc",tg:["word"],ic:"📋",icl:"ig",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-8-cap-huyen-co-file-nghe-so-2-340468"},
+{t:"Huyện Ý Yên",p:"Nam Định",y:"2015-2016",d:"Đề chọn HSG · đáp án chi tiết · miễn phí",tg:["free","word"],ic:"📄",icl:"ig",src:"vndoc",url:"https://vndoc.com/de-thi-chon-hoc-sinh-gioi-cap-huyen-mon-tieng-anh-lop-8-phong-gd-dt-y-yen-nam-dinh-nam-hoc-2015-2016-111775"},
+{t:"HSG Tiếng Anh 8 – Đề tham khảo số 1",p:"Nhiều tỉnh",y:"2022-2023",d:"Đề ôn thi · đáp án · Word · VnDoc miễn phí",tg:["free","word"],ic:"📋",icl:"ib",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-8-so-1-co-dap-an-274854"},
+{t:"HSG Tiếng Anh 8 – Đề tham khảo số 2",p:"Nhiều tỉnh",y:"2022-2023",d:"Đề ôn thi · đáp án · Word · VnDoc miễn phí",tg:["free","word"],ic:"📋",icl:"ig",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-8-so-2-co-dap-an-274862"},
+{t:"HSG Tiếng Anh 8 – Đề tham khảo số 3",p:"Nhiều tỉnh",y:"2022-2023",d:"Đề ôn thi · đáp án · Word · VnDoc",tg:["word"],ic:"📋",icl:"io",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-8-so-3-co-dap-an-274872"},
+{t:"HSG Tiếng Anh 8 – Đề tham khảo số 4",p:"Nhiều tỉnh",y:"2022-2023",d:"Đề ôn thi · đáp án · Word · VnDoc",tg:["word"],ic:"📋",icl:"ip",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-8-so-4-co-dap-an-274879"},
+{t:"HSG Tiếng Anh 8 – Đề tham khảo số 5",p:"Nhiều tỉnh",y:"2022-2023",d:"Đề ôn thi · đáp án · Word · VnDoc",tg:["word"],ic:"📋",icl:"iy",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-8-so-5-co-dap-an-274882"},
+{t:"HSG Tiếng Anh 8 – Đề tham khảo số 6",p:"Nhiều tỉnh",y:"2021-2022",d:"Đề ôn thi · đáp án · Word · VnDoc",tg:["word"],ic:"📋",icl:"ib",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-8-so-6-co-dap-an-274886"},
+{t:"HSG Tiếng Anh 8 – Đề tham khảo số 7",p:"Nhiều tỉnh",y:"2021-2022",d:"Đề ôn thi · đáp án · VnDoc",tg:["word"],ic:"📋",icl:"ig",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-8-so-7-co-dap-an-274891"},
+{t:"HSG Tiếng Anh 8 – Đề tham khảo số 8",p:"Nhiều tỉnh",y:"2021-2022",d:"Đề ôn thi · đáp án · VnDoc",tg:["word"],ic:"📋",icl:"io",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-8-so-8-co-dap-an-274895"},
+{t:"HSG Tiếng Anh 8 – Đề tham khảo số 9",p:"Nhiều tỉnh",y:"2021-2022",d:"Đề ôn thi · đáp án · VnDoc",tg:["word"],ic:"📋",icl:"ip",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-8-so-9-co-dap-an-274899"},
+{t:"HSG Tiếng Anh 8 – Đề tham khảo số 10",p:"Nhiều tỉnh",y:"2021-2022",d:"Đề ôn thi · đáp án · VnDoc",tg:["word"],ic:"📋",icl:"iy",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-8-so-10-co-dap-an-274908"},
+{t:"HSG Tiếng Anh 8 – Đề tham khảo số 11",p:"Nhiều tỉnh",y:"2020-2021",d:"Đề ôn thi · đáp án · VnDoc",tg:["word"],ic:"📋",icl:"ib",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-lop-8-so-11-274912"},
+{t:"HSG Tiếng Anh 8 – Đề tham khảo số 12",p:"Nhiều tỉnh",y:"2020-2021",d:"Đề ôn thi · đáp án · VnDoc",tg:["word"],ic:"📋",icl:"ig",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-lop-8-so-12-274918"},
+{t:"HSG Tiếng Anh 8 – Đề tham khảo số 13",p:"Nhiều tỉnh",y:"2020-2021",d:"Đề ôn thi · đáp án · VnDoc",tg:["word"],ic:"📋",icl:"io",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-lop-8-so-13-274921"},
+{t:"HSG Tiếng Anh 8 – Đề tham khảo số 14",p:"Nhiều tỉnh",y:"2019-2020",d:"Đề ôn thi · đáp án · VnDoc",tg:["word"],ic:"📋",icl:"ip",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-lop-8-so-14-274926"},
+{t:"HSG Tiếng Anh 8 – Đề tham khảo số 15",p:"Nhiều tỉnh",y:"2019-2020",d:"Đề ôn thi · đáp án · VnDoc",tg:["word"],ic:"📋",icl:"iy",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-lop-8-so-15-274929"},
+{t:"HSG Tiếng Anh 8 – Đề tham khảo số 16",p:"Nhiều tỉnh",y:"2019-2020",d:"Đề ôn thi · đáp án · VnDoc",tg:["word"],ic:"📋",icl:"ib",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-lop-8-so-16-274932"},
+{t:"HSG Tiếng Anh 8 – Đề tham khảo số 17",p:"Nhiều tỉnh",y:"2018-2019",d:"Đề ôn thi · đáp án · VnDoc",tg:["word"],ic:"📋",icl:"ig",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-lop-8-so-17-274936"},
+{t:"HSG Tiếng Anh 8 – Đề tham khảo số 18",p:"Nhiều tỉnh",y:"2018-2019",d:"Đề ôn thi · đáp án · VnDoc",tg:["word"],ic:"📋",icl:"io",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-lop-8-so-18-274940"},
+{t:"HSG Tiếng Anh 8 – Đề tham khảo số 19",p:"Nhiều tỉnh",y:"2018-2019",d:"Đề ôn thi · đáp án · VnDoc",tg:["word"],ic:"📋",icl:"ip",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-lop-8-so-19-274943"},
+{t:"HSG Tiếng Anh 8 – Đề tham khảo số 20",p:"Nhiều tỉnh",y:"2018-2019",d:"Đề ôn thi · đáp án · VnDoc",tg:["word"],ic:"📋",icl:"iy",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-lop-8-so-20-274946"},
+{t:"HSG Tiếng Anh 8 – Đề tham khảo số 21",p:"Nhiều tỉnh",y:"2017-2018",d:"Đề ôn thi · đáp án · VnDoc",tg:["word"],ic:"📋",icl:"ib",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-lop-8-so-21-274950"},
+{t:"HSG Tiếng Anh 8 – Đề tham khảo số 22",p:"Nhiều tỉnh",y:"2017-2018",d:"Đề ôn thi · đáp án · VnDoc",tg:["word"],ic:"📋",icl:"ig",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-lop-8-so-22-274953"},
+{t:"HSG Tiếng Anh 8 – Đề tham khảo số 23",p:"Nhiều tỉnh",y:"2017-2018",d:"Đề ôn thi · đáp án · VnDoc",tg:["word"],ic:"📋",icl:"io",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-lop-8-so-23-274956"},
+{t:"HSG Tiếng Anh 8 – Đề tham khảo số 24",p:"Nhiều tỉnh",y:"2017-2018",d:"Đề ôn thi · đáp án · VnDoc",tg:["word"],ic:"📋",icl:"ip",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-lop-8-so-24-274959"},
+{t:"HSG Tiếng Anh 8 – Đề tham khảo số 25",p:"Nhiều tỉnh",y:"2016-2017",d:"Đề ôn thi · đáp án · VnDoc",tg:["word"],ic:"📋",icl:"iy",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-lop-8-so-25-274962"},
+{t:"HSG Tiếng Anh 8 – Đề tham khảo số 26",p:"Nhiều tỉnh",y:"2016-2017",d:"Đề ôn thi · đáp án · VnDoc",tg:["word"],ic:"📋",icl:"ib",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-lop-8-so-26-274965"},
+{t:"HSG Tiếng Anh 8 – Đề tham khảo số 27",p:"Nhiều tỉnh",y:"2016-2017",d:"Đề ôn thi · đáp án · VnDoc",tg:["word"],ic:"📋",icl:"ig",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-lop-8-so-27-274969"},
+{t:"HSG Tiếng Anh 8 – Đề tham khảo số 28",p:"Nhiều tỉnh",y:"2015-2016",d:"Đề ôn thi · đáp án · VnDoc",tg:["word"],ic:"📋",icl:"io",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-lop-8-so-28-274972"},
+{t:"HSG Tiếng Anh 8 – Đề tham khảo số 29",p:"Nhiều tỉnh",y:"2015-2016",d:"Đề ôn thi · đáp án · VnDoc",tg:["word"],ic:"📋",icl:"ip",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-lop-8-so-29-274975"},
+{t:"HSG Tiếng Anh 8 – Đề tham khảo số 30",p:"Nhiều tỉnh",y:"2015-2016",d:"Đề ôn thi · đáp án · VnDoc",tg:["word"],ic:"📋",icl:"iy",src:"vndoc",url:"https://vndoc.com/30-de-thi-hoc-sinh-gioi-tieng-anh-lop-8-131250"},
+{t:"Olympic cấp tỉnh 2024 – Đề chuẩn",p:"Nhiều tỉnh",y:"2023-2024",d:"Đề Olympic 30/4 mẫu chuẩn · file nghe + đáp án",tg:["audio","word","tinh"],ic:"🏆",icl:"iy",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Cấp tỉnh Nam Định 2023-2024",p:"Nam Định",y:"2023-2024",d:"Đề HSG cấp tỉnh · đáp án chi tiết · 10 trang",tg:["free","word","tinh"],ic:"🥇",icl:"ig",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/de-thi-hsg-tieng-anh-8-cap-tinh-nam-dinh-2023-2024/"},
+{t:"Cấp tỉnh Nam Định (trong bộ 88)",p:"Nam Định",y:"2022-2023",d:"Đề HSG cấp tỉnh lưu trữ · Word · có trong bộ 88",tg:["word","tinh"],ic:"🥇",icl:"ig",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Cấp tỉnh Nghệ An (trong bộ 88)",p:"Nghệ An",y:"2022-2023",d:"Đề HSG cấp tỉnh · Word · có trong bộ 88",tg:["word","tinh"],ic:"🥇",icl:"io",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Cấp tỉnh Hà Tĩnh (trong bộ 88)",p:"Hà Tĩnh",y:"2021-2022",d:"Đề HSG cấp tỉnh · Word · có trong bộ 88",tg:["word","tinh"],ic:"🥇",icl:"io",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Cấp tỉnh Ninh Bình (trong bộ 88)",p:"Ninh Bình",y:"2022-2023",d:"Đề HSG cấp tỉnh · file nghe · có trong bộ 88",tg:["audio","word","tinh"],ic:"🥇",icl:"ip",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Cấp tỉnh Đà Nẵng 2022-2023",p:"Đà Nẵng",y:"2022-2023",d:"Đề HSG cấp TP/tỉnh · file nghe · có trong bộ 88",tg:["audio","word","tinh"],ic:"🥇",icl:"ib",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"📦 Bộ 88 đề HSG Anh 8 (2009–2024)",p:"HN · HP · TPHCM · ĐN · Nghệ An · Nam Định · Ninh Bình · Phú Thọ · Bắc Giang...",y:"2009-2024",d:"88 đề chính thức từ nhiều Phòng GD&ĐT · Word+PDF+MP3 toàn bộ",tg:["audio","word"],ic:"📚",icl:"ip",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"📦 Series HSG Anh 8 (thuvienhoclieu)",p:"Nhiều tỉnh thành toàn quốc",y:"2016-2025",d:"Series tổng hợp tất cả đề HSG Anh 8 + file nghe",tg:["audio","word"],ic:"📚",icl:"ib",src:"thuvienhoclieu",url:"https://thuvienhoclieu.com/series/tong-hop-cac-de-thi-hoc-sinh-gioi-tieng-anh-8-co-dap-an-va-file-nghe/"},
+{t:"📦 30 đề HSG Anh 8 chọn lọc (VnDoc)",p:"Nhiều tỉnh",y:"2015-2024",d:"30 đề tổng hợp · trắc nghiệm nâng cao · có đáp án",tg:["word"],ic:"📚",icl:"ig",src:"vndoc",url:"https://vndoc.com/30-de-thi-hoc-sinh-gioi-tieng-anh-lop-8-131250"},,
+{t:"Cấp tỉnh Nam Định",p:"Nam Định",y:"2024-2025",d:"Đề HSG cấp tỉnh 2025 · đáp án chi tiết · 10 trang",tg:["free","word","tinh"],ic:"🥇",icl:"ig",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/de-thi-hsg-anh-8-nam-truc-2024-2025-kem-dap-an/"},
+{t:"Thị xã Việt Yên",p:"Bắc Giang",y:"2024-2025",d:"Đề thi HSG cấp thị xã · Word + audio · Google Drive",tg:["audio","word"],ic:"📝",icl:"ip",src:"drive",url:"https://drive.google.com/drive/folders/1EMwwkvTU6MH988ej2LYLiRggOABSNh--"},
+{t:"TP Bắc Ninh",p:"Bắc Ninh",y:"2023-2024",d:"10 trang · Word + PDF + MP3 đầy đủ",tg:["free","audio","word"],ic:"🎧",icl:"ib",src:"thuvienhoclieu",url:"https://thuvienhoclieu.com/de-thi-hsg-anh-8-tp-bac-ninh-2023-2024-co-dap-an-va-file-nghe/"},
+{t:"Huyện Lý Nhân",p:"Hà Nam",y:"2023-2024",d:"7 trang · 110 câu · 120 phút · file nghe",tg:["free","audio","word"],ic:"📝",icl:"io",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/de-thi-hsg-tieng-anh-8-cap-huyen-ly-nhan-nam-2024-co-dap-an-va-file-nghe/"},
+{t:"Cấp tỉnh Nam Định",p:"Nam Định",y:"2023-2024",d:"Đề HSG cấp tỉnh · format mới nhất · đáp án",tg:["free","word","tinh"],ic:"🥇",icl:"ib",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/tag/de-thi-hsg-tieng-anh-8-moi-nhat-co-dap-an-va-file-nghe-word-pdf/"},
+{t:"Đề chuẩn cấp huyện #1",p:"Nhiều tỉnh",y:"2023-2024",d:"Đề chuẩn có file nghe · Word + PDF — VnDoc",tg:["audio","word"],ic:"📋",icl:"ib",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-8-cap-huyen-co-file-nghe-so-1-340466"},
+{t:"Đề chuẩn cấp huyện #2",p:"Nhiều tỉnh",y:"2023-2024",d:"Đề chuẩn từ VnDoc · có đáp án · Word",tg:["word"],ic:"📋",icl:"ig",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-8-cap-huyen-co-file-nghe-so-2-340468"},
+{t:"Huyện Gia Viễn",p:"Ninh Bình",y:"2022-2023",d:"11 trang · Word + PDF + MP3",tg:["free","audio","word"],ic:"🎧",icl:"ig",src:"thuvienhoclieu",url:"https://thuvienhoclieu.com/de-thi-chon-hsg-tieng-anh-8-huyen-gia-vien-2022-2023-co-dap-an-va-file-nghe/"},
+{t:"Huyện Lâm Thao",p:"Phú Thọ",y:"2022-2023",d:"Đề chọn HSG · Word + PDF + MP3",tg:["free","audio","word"],ic:"🎧",icl:"ip",src:"thuvienhoclieu",url:"https://thuvienhoclieu.com/de-chon-hsg-tieng-anh-8-huyen-lam-thao-2022-2023-co-dap-an-va-file-nghe/"},
+{t:"Phòng GD&ĐT Quảng Ninh",p:"Quảng Ninh",y:"2022-2023",d:"Đề chính thức · có file nghe",tg:["audio","word"],ic:"🎧",icl:"ib",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"TP Sầm Sơn",p:"Thanh Hóa",y:"2022-2023",d:"Đề thi HSG cấp TP · Word + PDF",tg:["free","word"],ic:"🏖️",icl:"io",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Đề kiểm tra chất lượng HSG",p:"Nhiều tỉnh",y:"2022-2023",d:"10 trang · Word + PDF + file nghe MP3",tg:["free","audio","word"],ic:"📋",icl:"ig",src:"thuvienhoclieu",url:"https://thuvienhoclieu.com/de-kiem-tra-chat-luong-hsg-tieng-anh-8-cap-huyen-dap-an-va-file-nghe/"},
+{t:"Huyện Kỳ Anh (Đề 1)",p:"Hà Tĩnh",y:"2021-2022",d:"Đề HSG cấp huyện · có đáp án · Word",tg:["word"],ic:"📝",icl:"io",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Huyện Kỳ Anh (Đề 2)",p:"Hà Tĩnh",y:"2021-2022",d:"Phiên bản 2 · có đáp án · Word",tg:["word"],ic:"📝",icl:"io",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Huyện Hòa Bình",p:"Bạc Liêu",y:"2020-2021",d:"Đề HSG miền Nam · có file nghe · Word",tg:["audio","word"],ic:"🎧",icl:"ig",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Đề chuẩn cấp huyện 2020-2021",p:"Nhiều tỉnh",y:"2020-2021",d:"7 trang · Word + PDF · đáp án đầy đủ",tg:["free","word"],ic:"📄",icl:"ib",src:"thuvienhoclieu",url:"https://thuvienhoclieu.com/de-thi-hoc-sinh-gioi-tieng-anh-8-cap-huyen-2019-2020-co-dap-an/"},
+{t:"Huyện Thanh Oai",p:"Hà Nội",y:"2018-2019",d:"8 trang · Word + PDF + MP3 · miễn phí",tg:["free","audio","word"],ic:"🎧",icl:"ib",src:"thuvienhoclieu",url:"https://thuvienhoclieu.com/de-thi-chon-hsg-tieng-anh-8-huyen-thanh-oai-2018-2019-co-dap-an-va-file-nghe/"},
+{t:"THCS Hai Bà Trưng",p:"Hà Nội",y:"2018-2019",d:"Đề chọn HSG cấp trường · Word + PDF",tg:["free","word"],ic:"🏫",icl:"ip",src:"thuvienhoclieu",url:"https://thuvienhoclieu.com/de-thi-chon-hoc-sinh-gioi-tieng-anh-8-truong-thcs-hai-ba-trung-2018-2019-co-dap-an/"},
+{t:"Đề thi thử HSG cấp TP",p:"Nhiều TP",y:"2018-2019",d:"8 trang · Word + PDF · đề chuẩn",tg:["free","word"],ic:"🏙️",icl:"ip",src:"thuvienhoclieu",url:"https://thuvienhoclieu.com/de-thi-thu-hoc-sinh-gioi-tieng-anh-8-cap-thanh-pho-co-dap-an/"},
+{t:"Huyện Thanh Oai",p:"Hà Nội",y:"2016-2017",d:"Word + PDF + MP3 · miễn phí",tg:["free","audio","word"],ic:"🎧",icl:"ib",src:"thuvienhoclieu",url:"https://thuvienhoclieu.com/de-thi-chon-hoc-sinh-gioi-tieng-anh-8-huyen-thanh-oai-2016-2017-co-dap-an-va-file-nghe/"},
+{t:"Huyện Yên Lạc",p:"Vĩnh Phúc",y:"2016-2017",d:"Đề giao lưu · 12 trang · Word+PDF+MP3",tg:["free","audio","word"],ic:"🎧",icl:"ip",src:"thuvienhoclieu",url:"https://thuvienhoclieu.com/de-thi-giao-luu-hsg-tieng-anh-8-huyen-yen-lac-2016-2017-co-dap-an-va-file-nghe/"},
+{t:"Huyện Bình Xuyên",p:"Vĩnh Phúc",y:"2016-2017",d:"75 câu · Phòng GD&ĐT Bình Xuyên",tg:["word"],ic:"📄",icl:"ip",src:"cqaugusta",url:"https://cqaugusta.com/de-thi-hoc-sinh-gioi-tieng-anh-8-co-file-nghe/"},
+{t:"Huyện Kim Bảng",p:"Hà Nam",y:"2016-2017",d:"Đề HSG cấp huyện · có file nghe",tg:["audio","word"],ic:"🎧",icl:"iy",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Huyện Nam Trực",p:"Nam Định",y:"2015-2016",d:"64 câu trắc nghiệm · đáp án · Word",tg:["free","word"],ic:"📄",icl:"ig",src:"cqaugusta",url:"https://cqaugusta.com/de-thi-hoc-sinh-gioi-tieng-anh-8-co-file-nghe/"},
+{t:"Huyện Ý Yên",p:"Nam Định",y:"2015-2016",d:"Đề chọn HSG · đáp án chi tiết · miễn phí",tg:["free","word"],ic:"📄",icl:"ig",src:"vndoc",url:"https://vndoc.com/de-thi-chon-hoc-sinh-gioi-cap-huyen-mon-tieng-anh-lop-8-phong-gd-dt-y-yen-nam-dinh-nam-hoc-2015-2016-111775"},
+{t:"Huyện Hoằng Hóa",p:"Thanh Hóa",y:"2014-2015",d:"90 câu trắc nghiệm · Phòng GD&ĐT Hoằng Hóa",tg:["word"],ic:"📄",icl:"io",src:"cqaugusta",url:"https://cqaugusta.com/de-thi-hoc-sinh-gioi-tieng-anh-8-co-file-nghe/"},
+{t:"Huyện Yên Mô",p:"Ninh Bình",y:"2014-2015",d:"Đề HSG cấp huyện · Word",tg:["word"],ic:"📄",icl:"ig",src:"vndoc",url:"https://vndoc.com/de-thi-chon-hoc-sinh-gioi-cap-huyen-mon-tieng-anh-lop-8-phong-gd-dt-y-yen-nam-dinh-nam-hoc-2015-2016-111775"},
+{t:"Huyện Hậu Lộc",p:"Thanh Hóa",y:"2013-2014",d:"Đề HSG cấp huyện · có đáp án · Word",tg:["word"],ic:"📄",icl:"io",src:"cqaugusta",url:"https://cqaugusta.com/de-thi-hoc-sinh-gioi-tieng-anh-8-co-file-nghe/"},
+{t:"Thị xã Sa Pa",p:"Lào Cai",y:"2012-2013",d:"Đề HSG vùng núi phía Bắc · Word",tg:["word"],ic:"🏔️",icl:"ip",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Huyện Nghĩa Đàn",p:"Nghệ An",y:"2012-2013",d:"Đề HSG cấp huyện · Word",tg:["word"],ic:"📄",icl:"io",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Huyện Tiên Lãng",p:"Hải Phòng",y:"2009-2010",d:"Đề thi cũ lưu trữ · định dạng Word",tg:["word"],ic:"📄",icl:"iy",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Cấp tỉnh Nghệ An",p:"Nghệ An",y:"2022-2023",d:"Đề HSG cấp tỉnh · Word · có trong bộ 88",tg:["word","tinh"],ic:"🥇",icl:"io",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Cấp tỉnh Hà Tĩnh",p:"Hà Tĩnh",y:"2021-2022",d:"Đề HSG cấp tỉnh · Word · có trong bộ 88",tg:["word","tinh"],ic:"🥇",icl:"io",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Cấp tỉnh Ninh Bình",p:"Ninh Bình",y:"2022-2023",d:"Đề HSG cấp tỉnh · file nghe · có trong bộ 88",tg:["audio","word","tinh"],ic:"🥇",icl:"ip",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Cấp tỉnh Đà Nẵng",p:"Đà Nẵng",y:"2022-2023",d:"Đề HSG cấp TP/tỉnh · file nghe · có trong bộ 88",tg:["audio","word","tinh"],ic:"🥇",icl:"ib",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"TP Hồ Chí Minh – 2023-2024",p:"TP Hồ Chí Minh",y:"2023-2024",d:"Đề HSG cấp quận · file nghe · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"ip",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"TP Hồ Chí Minh – 2022-2023",p:"TP Hồ Chí Minh",y:"2022-2023",d:"Đề HSG · file nghe · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"ip",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"TP Hồ Chí Minh – 2018-2019",p:"TP Hồ Chí Minh",y:"2018-2019",d:"Đề HSG · file nghe · có trong bộ 88",tg:["audio","word"],ic:"🎧",icl:"ip",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"Olympic cấp tỉnh 2024",p:"Nhiều tỉnh",y:"2023-2024",d:"Đề Olympic 30/4 mẫu chuẩn · file nghe + đáp án",tg:["audio","word","tinh"],ic:"🏆",icl:"iy",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"HSG Anh 8 – Đề tham khảo số 1",p:"Nhiều tỉnh",y:"2022-2023",d:"Đề ôn thi · đáp án · Word · VnDoc miễn phí",tg:["free","word"],ic:"📋",icl:"ib",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-8-so-1-co-dap-an-274854"},
+{t:"HSG Anh 8 – Đề tham khảo số 2",p:"Nhiều tỉnh",y:"2022-2023",d:"Đề ôn thi · đáp án · Word · VnDoc miễn phí",tg:["free","word"],ic:"📋",icl:"ig",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-8-so-2-co-dap-an-274862"},
+{t:"HSG Anh 8 – Đề tham khảo số 10",p:"Nhiều tỉnh",y:"2021-2022",d:"Đề ôn thi · đáp án · VnDoc",tg:["word"],ic:"📋",icl:"iy",src:"vndoc",url:"https://vndoc.com/de-thi-hoc-sinh-gioi-tieng-anh-8-so-10-co-dap-an-274908"},
+{t:"📦 Bộ 88 đề HSG Anh 8 (2009–2024)",p:"HN · HP · TPHCM · ĐN · Nghệ An · Nam Định...",y:"2009-2024",d:"88 đề chính thức từ nhiều Phòng GD&ĐT · Word+PDF+MP3",tg:["audio","word"],ic:"📚",icl:"ip",src:"tailieudieuky",url:"https://tailieudieuky.com/baiviet/document/88-de-thi-hsg-tieng-anh-8-cap-huyen-co-dap-an-va-file-nghe/"},
+{t:"📦 Tổng hợp HSG Anh 8 (thuvienhoclieu)",p:"Nhiều tỉnh thành toàn quốc",y:"2016-2025",d:"Series tổng hợp tất cả đề HSG Anh 8 + file nghe",tg:["audio","word"],ic:"📚",icl:"ib",src:"thuvienhoclieu",url:"https://thuvienhoclieu.com/series/tong-hop-cac-de-thi-hoc-sinh-gioi-tieng-anh-8-co-dap-an-va-file-nghe/"},
+{t:"📦 250 đề HSG Anh 8 (dethihsg247)",p:"Toàn quốc · 2017-2024",y:"2017-2024",d:"Kho 250 đề · cập nhật liên tục · miễn phí",tg:["free","audio","word"],ic:"📚",icl:"ig",src:"dethihsg247",url:"https://dethihsg247.com/tu-khoa/de-thi-hsg-tieng-anh-8"},
+{t:"📦 64 đề HSG Anh 8 chọn lọc",p:"Nhiều tỉnh",y:"2017-2024",d:"Trọn bộ 64 đề · đáp án + file nghe",tg:["free","audio","word"],ic:"📚",icl:"iy",src:"cqaugusta",url:"https://cqaugusta.com/de-thi-hoc-sinh-gioi-tieng-anh-8-co-file-nghe/"},
+{t:"📦 30 đề HSG Anh 8 (VnDoc)",p:"Nhiều tỉnh",y:"2018-2024",d:"30 đề tổng hợp · trắc nghiệm nâng cao",tg:["word"],ic:"📚",icl:"ib",src:"vndoc",url:"https://vndoc.com/30-de-thi-hoc-sinh-gioi-tieng-anh-lop-8-131250"},
+];
+
+/* ═══════════════════════════════
+   HELPERS
+═══════════════════════════════ */
+const TL={free:"✅ Miễn phí",audio:"🎧 File nghe",word:"📄 Word/PDF",tinh:"🥇 Cấp tỉnh"};
+const TAGCLS={free:"tf",audio:"ta",word:"tw",tinh:"tt"};
+const SRC={tailieudieuky:"tailieudieuky.com",thuvienhoclieu:"thuvienhoclieu.com",vndoc:"vndoc.com",dethihsg247:"dethihsg247.com",cqaugusta:"cqaugusta.com",drive:"Google Drive"};
+function yC(y){if(y==="2024-2025")return"yr-new";if(["2023-2024","2022-2023"].includes(y))return"yr-recent";if(["2020-2021","2021-2022","2019-2020","2018-2019","2017-2018","2016-2017","2015-2016"].includes(y))return"yr-mid";return"yr-old";}
+function yB(y){if(y==="2024-2025")return"cy-new";if(["2023-2024","2022-2023"].includes(y))return"cy-recent";if(["2020-2021","2021-2022","2019-2020","2018-2019","2017-2018","2016-2017","2015-2016"].includes(y))return"cy-mid";return"cy-old";}
+function yCol(y){if(y==="2024-2025")return{c:"#a78bfa",g:"rgba(167,139,250,.15)"};if(["2023-2024","2022-2023"].includes(y))return{c:"#6378ff",g:"rgba(99,120,255,.15)"};if(["2020-2021","2021-2022","2019-2020","2018-2019","2017-2018","2016-2017","2015-2016"].includes(y))return{c:"#34d399",g:"rgba(52,211,153,.12)"};return{c:"#fbbf24",g:"rgba(251,191,36,.12)"};}
+function inGrp(y,g){if(g==="2024-2025")return y==="2024-2025";if(g==="2023-2024")return y==="2023-2024";if(g==="2022-2023")return y==="2022-2023";if(g==="2020-2022")return["2020-2021","2021-2022"].includes(y);if(g==="2016-2020")return["2016-2017","2017-2018","2018-2019","2019-2020","2015-2016"].includes(y);if(g==="truoc2016")return["2009-2010","2010-2011","2011-2012","2012-2013","2013-2014","2014-2015"].includes(y);return true;}
+function getLvl(t){if(/tỉnh|cấp tỉnh/i.test(t))return"🥇 Cấp tỉnh";if(/thành phố|tp\b/i.test(t))return"🏙️ Cấp TP";if(/huyện|quận|thị xã/i.test(t))return"🏅 Cấp huyện";if(/trường|thcs/i.test(t))return"🏫 Cấp trường";if(/olympic/i.test(t))return"🏆 Olympic";if(/tổng hợp|bộ \d+|tuyển tập|kho/i.test(t))return"📦 Tổng hợp";return"🏅 Cấp huyện";}
+function calcD(item){let s=50;const yr=parseInt((item.y||"").split("-")[0])||2020;if(yr<=2015)s+=20;else if(yr<=2018)s+=12;else if(yr<=2021)s+=5;else if(yr>=2024)s-=5;const p=(item.p||"").toLowerCase();if(/hà nội|hồ chí minh|đà nẵng/.test(p))s+=15;else if(/nghệ an|thanh hóa|hà tĩnh|ninh bình/.test(p))s+=10;else if(/nhiều tỉnh|toàn quốc/.test(p))s+=5;const t=(item.t||"").toLowerCase();if(/tỉnh/.test(t))s+=20;else if(/tp|thành phố/.test(t))s+=10;else if(/trường/.test(t))s-=10;if((item.tg||[]).includes("audio"))s+=5;return Math.round(Math.max(22,Math.min(97,s)));}
+function dMeta(s){if(s>=85)return{label:"Rất khó",stars:"★★★★★",color:"#f472b6",bar:"linear-gradient(90deg,#f472b6,#a78bfa)"};if(s>=70)return{label:"Khó",stars:"★★★★☆",color:"#fb923c",bar:"linear-gradient(90deg,#fb923c,#fbbf24)"};if(s>=55)return{label:"Trung bình",stars:"★★★☆☆",color:"#fbbf24",bar:"linear-gradient(90deg,#fbbf24,#34d399)"};if(s>=40)return{label:"Dễ vừa",stars:"★★☆☆☆",color:"#34d399",bar:"linear-gradient(90deg,#34d399,#22d3ee)"};return{label:"Dễ",stars:"★☆☆☆☆",color:"#22d3ee",bar:"linear-gradient(90deg,#22d3ee,#6378ff)"};}
+function dBand(s){if(s>=85)return"rat-kho";if(s>=70)return"kho";if(s>=55)return"tb";if(s>=40)return"de-vua";return"de";}
+
+/* ═══════════════════════════════
+   RENDER
+═══════════════════════════════ */
+function render(items){
+  const g=document.getElementById("grid"),nr=document.getElementById("nr"),rc=document.getElementById("rc");
+  g.innerHTML="";
+  if(!items.length){nr.style.display="block";rc.textContent="";return;}
+  nr.style.display="none";rc.textContent=`${items.length} / ${D.length} đề`;
+  items.forEach(item=>{
+    const tgs=item.tg.map(t=>`<span class="tag ${TAGCLS[t]||"tb2"}">${TL[t]||t}</span>`).join("");
+    const div=document.createElement("div");const sc=calcD(item);const dm=dMeta(sc);
+    div.className=`card ${yC(item.y)}`;
+    div.innerHTML=`<div class="ch"><div class="ci ${item.icl}">${item.ic}</div><span class="cy ${yB(item.y)}">${item.y}</span></div><div class="ct">${item.t}</div><div class="cs">📍 ${item.p} · ${item.d}</div><div class="tags">${tgs}</div><div class="card-foot"><span class="card-src">${SRC[item.src]||item.src}</span><span class="card-go" style="color:${dm.color}">${dm.stars} ${dm.label} →</span></div>`;
+    div.addEventListener("click",()=>openModal(item));
+    g.appendChild(div);
+  });
+}
+
+/* ═══════════════════════════════
+   FILTERS
+═══════════════════════════════ */
+let cf="all",cs="",cd="all";
+function applyF(){
+  const res=D.filter(item=>{
+    const s=(item.t+item.p+item.y+item.d).toLowerCase();
+    const ms=!cs||s.includes(cs);
+    let mf=cf==="all"||inGrp(item.y,cf);
+    if(cf==="audio")mf=item.tg.includes("audio");else if(cf==="free")mf=item.tg.includes("free");else if(["tailieudieuky","thuvienhoclieu","vndoc","dethihsg247"].includes(cf))mf=item.src===cf;
+    let md=true;if(cd!=="all"){md=dBand(calcD(item))===cd;}
+    return ms&&mf&&md;
+  });
+  render(res);setTimeout(()=>revealCards(),50);
+}
+document.getElementById("si").addEventListener("input",e=>{cs=e.target.value.toLowerCase().trim();applyF();});
+document.querySelectorAll(".fb").forEach(b=>{b.addEventListener("click",()=>{document.querySelectorAll(".fb").forEach(x=>x.classList.remove("active"));b.classList.add("active");cf=b.dataset.f;applyF();});});
+function setDiff(el,val){document.querySelectorAll(".dfb").forEach(b=>b.className="dfb");el.classList.add("active-"+val);cd=val;applyF();}
+
+/* ═══════════════════════════════
+   MODAL
+═══════════════════════════════ */
+function openModal(item){
+  const col=yCol(item.y);const sc=calcD(item);const dm=dMeta(sc);
+  document.getElementById("mglow").style.background=`radial-gradient(circle,${col.g},transparent 70%)`;
+  const myr=document.getElementById("myr");myr.textContent="📅 "+item.y;myr.style.background=col.g;myr.style.color=col.c;myr.style.border=`1px solid ${col.c}44`;
+  document.getElementById("msrc").textContent=SRC[item.src]||item.src;
+  document.getElementById("mtitle").textContent=item.t;
+  document.getElementById("mloc").textContent="📍 "+item.p;
+  const dbar=document.getElementById("dbar");dbar.style.width="0%";dbar.style.background=dm.bar;
+  setTimeout(()=>{dbar.style.width=sc+"%";},60);
+  document.getElementById("dscore").textContent=sc;document.getElementById("dscore").style.color=dm.color;
+  document.getElementById("dtext").textContent=dm.label;document.getElementById("dtext").style.color=dm.color;
+  document.getElementById("dstars").textContent=dm.stars;
+  document.getElementById("myear").textContent=item.y;document.getElementById("mlevel").textContent=getLvl(item.t);
+  document.getElementById("mdesc").innerHTML=item.d;
+  document.getElementById("mtags").innerHTML=item.tg.map(t=>`<span class="tag ${TAGCLS[t]||"tb2"}">${TL[t]||t}</span>`).join("");
+  document.getElementById("mbtn").href=item.url;
+  document.getElementById("overlay").classList.add("open");document.body.style.overflow="hidden";
+}
+function closeModal(){document.getElementById("overlay").classList.remove("open");document.body.style.overflow="";}
+function handleOverlayClick(e){if(e.target===document.getElementById("overlay"))closeModal();}
+
+/* ═══════════════════════════════
+   SCROLL
+═══════════════════════════════ */
+const btnTop=document.getElementById("btnTop");
+window.addEventListener("scroll",()=>{
+  const t=window.scrollY,h=document.documentElement.scrollHeight-window.innerHeight,p=h?Math.min(t/h,1):0;
+  document.getElementById("scrollProg").style.transform=`scaleX(${p})`;
+  document.getElementById("bgMesh").style.filter=`hue-rotate(${Math.round(p*40)}deg) brightness(${1+p*.08})`;
+  if(t>300)btnTop.classList.add("show");else btnTop.classList.remove("show");
+  revealCards();
+},{passive:true});
+function revealCards(){document.querySelectorAll(".card:not(.revealed)").forEach(c=>{if(c.getBoundingClientRect().top<window.innerHeight-40)c.classList.add("revealed");});}
+
+/* ═══════════════════════════════
+   PARTICLES
+═══════════════════════════════ */
+function startParticles(){
+  const cols=["rgba(99,120,255,.5)","rgba(244,114,182,.4)","rgba(34,211,238,.4)","rgba(167,139,250,.5)","rgba(52,211,153,.35)"];
+  function mk(){const p=document.createElement("div");p.className="particle";const sz=Math.random()*6+3,dur=Math.random()*12+8;p.style.cssText=`left:${Math.random()*100}%;bottom:-10px;width:${sz}px;height:${sz}px;background:${cols[Math.floor(Math.random()*cols.length)]};animation-duration:${dur}s;`;document.body.appendChild(p);setTimeout(()=>p.remove(),(dur+5)*1000);}
+  for(let i=0;i<14;i++)setTimeout(mk,i*400);
+  setInterval(mk,3500);
+}
+
+/* ═══════════════════════════════
+   COSMOS — random button lives ONLY here
+═══════════════════════════════ */
+let cosmosDiff='all',cAnim=null,pAnim=null;
+
+function openCosmos(){
+  document.getElementById('cosmosOv').classList.add('open');
+  document.body.style.overflow='hidden';
+  initStars();initPortal();
+}
+function closeCosmos(){
+  document.getElementById('cosmosOv').classList.remove('open');
+  document.body.style.overflow='';
+  if(cAnim)cancelAnimationFrame(cAnim);cAnim=null;
+  if(pAnim)cancelAnimationFrame(pAnim);pAnim=null;
+}
+function handleCosmosClick(e){if(e.target===document.getElementById('cosmosOv'))closeCosmos();}
+
+document.querySelectorAll('.cdopt').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelectorAll('.cdopt').forEach(x=>x.classList.remove('sel'));
+    b.classList.add('sel');cosmosDiff=b.dataset.cd;
+    const pc=document.querySelector('.portal-ctr');pc.style.transform='scale(1.2)';setTimeout(()=>pc.style.transform='',200);
+  });
+});
+
+function initStars(){
+  const cv=document.getElementById('cCanvas');if(!cv)return;
+  const ctx=cv.getContext('2d');cv.width=window.innerWidth;cv.height=window.innerHeight;
+  const stars=Array.from({length:300},()=>({x:Math.random()*cv.width,y:Math.random()*cv.height,r:Math.random()*1.8+.2,speed:Math.random()*.4+.05,phase:Math.random()*Math.PI*2}));
+  const neb=[{x:.2,y:.3,r:200,c:'rgba(99,120,255,.04)'},{x:.8,y:.7,r:180,c:'rgba(244,114,182,.035)'},{x:.5,y:.15,r:160,c:'rgba(34,211,238,.03)'}];
+  let t=0;
+  (function draw(){ctx.clearRect(0,0,cv.width,cv.height);t+=.008;neb.forEach(n=>{const g=ctx.createRadialGradient(n.x*cv.width,n.y*cv.height,0,n.x*cv.width,n.y*cv.height,n.r);g.addColorStop(0,n.c);g.addColorStop(1,'transparent');ctx.fillStyle=g;ctx.fillRect(0,0,cv.width,cv.height);});stars.forEach(s=>{const b=.4+.6*Math.abs(Math.sin(t*s.speed*2+s.phase));ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle=`rgba(200,210,255,${b*.9})`;ctx.fill();});cAnim=requestAnimationFrame(draw);})();
+}
+
+function initPortal(){
+  const cv=document.getElementById('pCanvas');if(!cv)return;
+  const ctx=cv.getContext('2d');const W=220,H=220,cx=110,cy=110;cv.width=W;cv.height=H;
+  let a=0;
+  const rings=[{r:100,sp:.6,w:2.5,col:[167,139,250],dash:[8,6]},{r:88,sp:-.9,w:1.5,col:[99,120,255],dash:[4,8]},{r:76,sp:1.2,w:1,col:[34,211,238],dash:[2,10]},{r:64,sp:-.4,w:2,col:[244,114,182],dash:[12,4]}];
+  const dots=[{r:100,a:0,sp:.8,sz:4,col:[255,255,255]},{r:88,a:2.1,sp:-1.2,sz:3,col:[167,139,250]},{r:76,a:4.2,sp:1.5,sz:2.5,col:[34,211,238]},{r:64,a:1,sp:-.6,sz:3.5,col:[244,114,182]}];
+  (function draw(){ctx.clearRect(0,0,W,H);a+=.01;rings.forEach(r=>{ctx.save();ctx.translate(cx,cy);ctx.rotate(a*r.sp);ctx.beginPath();ctx.arc(0,0,r.r,0,Math.PI*2);ctx.setLineDash(r.dash);ctx.strokeStyle=`rgba(${r.col[0]},${r.col[1]},${r.col[2]},.5)`;ctx.lineWidth=r.w;ctx.stroke();ctx.restore();});dots.forEach(d=>{d.a+=d.sp*.012;const x=cx+Math.cos(d.a)*d.r,y=cy+Math.sin(d.a)*d.r;for(let i=5;i>0;i--){const tx=cx+Math.cos(d.a-i*.08*d.sp)*d.r,ty=cy+Math.sin(d.a-i*.08*d.sp)*d.r;ctx.beginPath();ctx.arc(tx,ty,d.sz*(1-i/6)*.7,0,Math.PI*2);ctx.fillStyle=`rgba(${d.col[0]},${d.col[1]},${d.col[2]},${.1*(5-i)})`;ctx.fill();}ctx.beginPath();ctx.arc(x,y,d.sz,0,Math.PI*2);ctx.fillStyle=`rgb(${d.col[0]},${d.col[1]},${d.col[2]})`;ctx.fill();});const cg=ctx.createRadialGradient(cx,cy,0,cx,cy,40);cg.addColorStop(0,'rgba(167,139,250,.2)');cg.addColorStop(.5,'rgba(99,120,255,.08)');cg.addColorStop(1,'transparent');ctx.fillStyle=cg;ctx.fillRect(cx-50,cy-50,100,100);pAnim=requestAnimationFrame(draw);})();
+}
+
+function launchWarp(){
+  for(let i=0;i<40;i++){const l=document.createElement('div');const a=Math.random()*360,d=80+Math.random()*120;l.style.cssText=`position:fixed;left:${50+Math.cos(a*Math.PI/180)*d*.3}vw;top:${50+Math.sin(a*Math.PI/180)*d*.5}vh;width:1px;height:${30+Math.random()*100}px;background:rgba(167,139,250,.6);transform:rotate(${a+90}deg);animation:wL .6s ${Math.random()*.3}s ease forwards;z-index:10002;pointer-events:none;`;document.body.appendChild(l);setTimeout(()=>l.remove(),1200);}
+  if(!document.getElementById('wLStyle')){const st=document.createElement('style');st.id='wLStyle';st.textContent='@keyframes wL{0%{opacity:0;transform:scaleY(0);}20%{opacity:.8;}100%{opacity:0;transform:scaleY(3) translateY(-50px);}}';document.head.appendChild(st);}
+  const warp=document.getElementById('warpOv');warp.classList.add('active');
+  const portal=document.getElementById('cosmosPortal');portal.style.transition='transform .6s cubic-bezier(.4,0,.2,1),opacity .4s';portal.style.transform='scale(3)';portal.style.opacity='0';
+  setTimeout(()=>{closeCosmos();portal.style.transition='';portal.style.transform='';portal.style.opacity='';warp.classList.remove('active');pickRandom();},750);
+}
+
+function pickRandom(){
+  const fil=D.filter(item=>{
+    const s=(item.t+item.p+item.y+item.d).toLowerCase();
+    const ms=!cs||s.includes(cs);
+    let mf=cf==="all"||inGrp(item.y,cf);
+    if(cf==="audio")mf=item.tg.includes("audio");else if(cf==="free")mf=item.tg.includes("free");else if(["tailieudieuky","thuvienhoclieu","vndoc","dethihsg247"].includes(cf))mf=item.src===cf;
+    let md=true;if(cosmosDiff!=="all")md=dBand(calcD(item))===cosmosDiff;
+    return ms&&mf&&md;
+  });
+  if(!fil.length){alert("Không có đề nào phù hợp!");return;}
+  const pick=fil[Math.floor(Math.random()*fil.length)];
+  openModal(pick);
+  setTimeout(()=>{const m=document.getElementById("modal");m.classList.add("rflash");setTimeout(()=>m.classList.remove("rflash"),600);},100);
+}
+
+/* ESC */
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    if(document.getElementById('cosmosOv').classList.contains('open'))closeCosmos();
+    else closeModal();
+  }
+});
+
+
+/* ═══════════════════════════════
+   LOVE PAGE — click chữ ký
+═══════════════════════════════ */
+function openLovePage(){
+  const loveHtml = `
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nhật Minh ❤️</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script:wght@600&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:#000008; overflow:hidden; width:100vw; height:100vh; }
+  canvas { display:block; }
+  #overlay {
+    position:fixed; inset:0;
+    display:flex; flex-direction:column;
+    align-items:center; justify-content:center;
+    pointer-events:none; z-index:10;
+  }
+  #loveText {
+    font-family:'Great Vibes',cursive;
+    font-size: clamp(4rem,12vw,9rem);
+    background: linear-gradient(135deg,#ffe0ec,#ff6fa8,#ff1a5e,#ff6fa8,#ffe0ec);
+    background-size:200% 200%;
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    filter: drop-shadow(0 0 30px rgba(255,30,100,0.9));
+    opacity:0; transform:scale(0.6) translateY(40px);
+    transition: opacity 2s ease, transform 2s cubic-bezier(0.175,0.885,0.32,1.275);
+    animation: shimmer 4s ease infinite;
+  }
+  #loveText.show { opacity:1; transform:scale(1) translateY(0); }
+  @keyframes shimmer {
+    0%,100%{background-position:0% 50%} 50%{background-position:100% 50%}
+  }
+  #sub {
+    font-family:'Dancing Script',cursive;
+    font-size:clamp(1rem,2.5vw,1.5rem);
+    color:rgba(255,180,210,0.8);
+    margin-top:1rem; letter-spacing:3px;
+    opacity:0; transform:translateY(15px);
+    transition: opacity 1.5s ease 0.8s, transform 1.5s ease 0.8s;
+  }
+  #sub.show { opacity:1; transform:translateY(0); }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="overlay">
+  <div id="loveText">I Love You ❤️</div>
+  <div id="sub">✦ mãi mãi và luôn luôn ✦</div>
+</div>
+<script>
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+window.addEventListener('resize', () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  buildTextPoints();
+});
+let textPoints = [];
+function buildTextPoints() {
+  const W = canvas.width, H = canvas.height;
+  const off = document.createElement('canvas');
+  off.width = W; off.height = H;
+  const oc = off.getContext('2d');
+  const fs = Math.min(W / 5.5, H / 2.2, 180);
+  oc.fillStyle = '#fff';
+  oc.font = 'bold ' + fs + 'px Arial';
+  oc.textAlign = 'center';
+  oc.textBaseline = 'middle';
+  oc.fillText('Nhật Minh', W/2, H/2);
+  const data = oc.getImageData(0,0,W,H).data;
+  const gap = Math.max(4, Math.floor(W/160));
+  textPoints = [];
+  for (let y = 0; y < H; y += gap) {
+    for (let x = 0; x < W; x += gap) {
+      const i = (y*W + x)*4;
+      if (data[i+3] > 128) textPoints.push({x, y});
+    }
+  }
+}
+buildTextPoints();
+const particles = [];
+class Particle {
+  constructor(x, y, targetX, targetY, color) {
+    this.x = x; this.y = y;
+    this.tx = targetX; this.ty = targetY;
+    this.color = color;
+    this.size = 2 + Math.random() * 1.5;
+    this.vx = (Math.random()-0.5)*12;
+    this.vy = (Math.random()-0.5)*12;
+    this.homing = false;
+    this.homingDelay = 30 + Math.random()*40;
+    this.frame = 0;
+    this.settled = false;
+  }
+  update() {
+    this.frame++;
+    if (!this.homing && this.frame > this.homingDelay) this.homing = true;
+    if (this.homing) {
+      this.vx += (this.tx - this.x) * 0.06;
+      this.vy += (this.ty - this.y) * 0.06;
+      this.vx *= 0.78; this.vy *= 0.78;
+    } else {
+      this.vy += 0.12; this.vx *= 0.97; this.vy *= 0.97;
+    }
+    this.x += this.vx; this.y += this.vy;
+    const dx = this.tx - this.x, dy = this.ty - this.y;
+    if (this.homing && Math.sqrt(dx*dx+dy*dy) < 1.5 && Math.abs(this.vx)<0.3) {
+      this.x = this.tx; this.y = this.ty;
+      this.vx = 0; this.vy = 0; this.settled = true;
+    }
+  }
+  draw() {
+    ctx.save();
+    ctx.fillStyle = this.color;
+    ctx.shadowBlur = 8; ctx.shadowColor = this.color;
+    ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI*2); ctx.fill();
+    ctx.restore();
+  }
+}
+const rockets = [];
+const colors = ['#ff4466','#ff8844','#ffcc00','#44ddff','#cc88ff','#44ff99','#ff66cc','#ffffff','#ff69b4'];
+class Rocket {
+  constructor() {
+    this.x = canvas.width * (0.15 + Math.random()*0.7);
+    this.y = canvas.height + 10;
+    this.vy = -(14 + Math.random()*7);
+    this.vx = (Math.random()-0.5)*2;
+    this.color = colors[Math.floor(Math.random()*colors.length)];
+    this.trail = [];
+    this.exploded = false;
+    this.peakY = canvas.height*0.1 + Math.random()*canvas.height*0.45;
+  }
+  update() {
+    this.trail.push({x:this.x, y:this.y, a:1});
+    if (this.trail.length > 20) this.trail.shift();
+    this.trail.forEach(t => t.a -= 0.06);
+    this.vy += 0.25; this.x += this.vx; this.y += this.vy;
+    if (this.y <= this.peakY || this.vy >= 0) this.explode();
+  }
+  explode() {
+    this.exploded = true;
+    flashes.push({x:this.x, y:this.y, r:0, life:1, color:this.color});
+    const subset = shuffle(textPoints).slice(0, Math.min(textPoints.length, 220));
+    for (const pt of subset) particles.push(new Particle(this.x, this.y, pt.x, pt.y, rndColor()));
+  }
+  draw() {
+    for (let i=0; i<this.trail.length; i++) {
+      const t = this.trail[i], f = i/this.trail.length;
+      ctx.save(); ctx.globalAlpha = Math.max(0, t.a) * f;
+      ctx.fillStyle = this.color; ctx.shadowBlur = 10; ctx.shadowColor = this.color;
+      ctx.beginPath(); ctx.arc(t.x, t.y, 2.5*f, 0, Math.PI*2); ctx.fill(); ctx.restore();
+    }
+    if (!this.exploded) {
+      ctx.save(); ctx.fillStyle = '#fffdd0'; ctx.shadowBlur = 18; ctx.shadowColor = '#ffcc00';
+      ctx.beginPath(); ctx.arc(this.x, this.y, 3, 0, Math.PI*2); ctx.fill(); ctx.restore();
+    }
+  }
+}
+const flashes = [];
+function rndColor() { return colors[Math.floor(Math.random()*colors.length)]; }
+function shuffle(arr) {
+  const a = arr.slice();
+  for (let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}
+  return a;
+}
+const stars = Array.from({length:200},()=>({
+  x:Math.random()*window.innerWidth, y:Math.random()*window.innerHeight,
+  r:0.3+Math.random()*1.1, a:0.3+Math.random()*0.6, t:Math.random()*Math.PI*2
+}));
+let lastLaunch = 0, textShown = false;
+function loop(ts) {
+  requestAnimationFrame(loop);
+  const W = canvas.width, H = canvas.height;
+  ctx.fillStyle = 'rgba(0,0,8,0.18)';
+  ctx.fillRect(0,0,W,H);
+  stars.forEach(s => {
+    s.t += 0.018;
+    ctx.save(); ctx.globalAlpha = s.a*(0.5+0.5*Math.sin(s.t));
+    ctx.fillStyle='#fff'; ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,Math.PI*2); ctx.fill(); ctx.restore();
+  });
+  for (let i=flashes.length-1;i>=0;i--) {
+    const f=flashes[i]; f.r += 10; f.life -= 0.1;
+    if (f.life<=0){flashes.splice(i,1);continue;}
+    const g=ctx.createRadialGradient(f.x,f.y,0,f.x,f.y,f.r);
+    g.addColorStop(0,'rgba(255,255,255,'+(f.life*0.9)+')');
+    g.addColorStop(0.4,'rgba(255,200,180,'+(f.life*0.4)+')');
+    g.addColorStop(1,'rgba(0,0,0,0)');
+    ctx.save(); ctx.globalCompositeOperation='screen';
+    ctx.fillStyle=g; ctx.beginPath(); ctx.arc(f.x,f.y,f.r,0,Math.PI*2); ctx.fill(); ctx.restore();
+  }
+  if (ts - lastLaunch > 900 + Math.random()*700) {
+    rockets.push(new Rocket());
+    if (Math.random()<0.3) rockets.push(new Rocket());
+    lastLaunch = ts;
+  }
+  for (let i=rockets.length-1;i>=0;i--) {
+    rockets[i].update(); rockets[i].draw();
+    if (rockets[i].exploded) rockets.splice(i,1);
+  }
+  let settledCount = 0;
+  for (let i=particles.length-1;i>=0;i--) {
+    particles[i].update(); particles[i].draw();
+    if (particles[i].settled) settledCount++;
+  }
+  if (!textShown && particles.length > 0 && settledCount / particles.length > 0.85) {
+    textShown = true;
+    document.getElementById('loveText').classList.add('show');
+    document.getElementById('sub').classList.add('show');
+  }
+}
+requestAnimationFrame(loop);
+setTimeout(()=>{ rockets.push(new Rocket()); }, 500);
+<\/script>
+</body>
+</html>
+`;
+  const w = window.open('','_blank');
+  if(!w){alert('Trình duyệt chặn pop-up. Vui lòng cho phép pop-up để xem nội dung đặc biệt!');return;}
+  w.document.open();
+  w.document.write(loveHtml);
+  w.document.close();
+}
+
+/* INIT */
+document.getElementById('tc').textContent=D.length;
+</script>
+</body>
+</html>
